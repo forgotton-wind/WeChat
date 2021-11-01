@@ -20,7 +20,7 @@
       <div class="login-main-wrap" v-if="isLogin">
         <div class="login-main-title">欢迎登录</div>
         <div class="login-main-input">
-          <input v-model="email" class="login-input" type="email" placeholder="邮箱" />
+          <input v-model="account" class="login-input" type="text" placeholder="账号" />
           <input v-model="password" class="login-input" type="password" placeholder="密码" />
           <button class="login-btn login-btn-login" v-on:click="handleLogin">
             登 录
@@ -30,10 +30,10 @@
       <div class="login-main-wrap" v-else>
         <div class="login-main-title">欢迎注册</div>
         <div class="login-main-input">
-          <input class="login-input" type="email" placeholder="邮箱" />
-          <input class="login-input" type="password" placeholder="密码" />
-          <input class="login-input" type="password" placeholder="确认密码" />
-          <button class="login-btn login-btn-register">注 册</button>
+          <input v-model="account" class="login-input" type="text" placeholder="账号" />
+          <input v-model="password" class="login-input" type="password" placeholder="密码" />
+          <input v-model="confirm_password" class="login-input" type="password" placeholder="确认密码" />
+          <button class="login-btn login-btn-register" v-on:click="handleRegister">注 册</button>
         </div>
       </div>
     </div>
@@ -49,8 +49,9 @@ export default {
   data() {
     return {
       isLogin: true,
-	  email:'',
-	  password:''
+	  account:'',
+	  password:'',
+	  confirm_password
     };
 
   },
@@ -58,24 +59,28 @@ export default {
     handleLogin() {
 		var that = this;
 		var mydata={
-			username:that.email,
-			password:that.password
+			u_account:that.account,
+			u_password:that.password
 		}
-		 /*在这里进行跨域请求*/
-	   that.axios({
-				 method: "post",
-				 url: 'http://127.0.0.1:8077/WeChat/user/login?user_account='+mydata.username+'&user_password='+mydata.password,
-				 data:Qs.stringify(mydata)
-			 })
-			 .then(function(res) {
+		//在这里进行跨域请求
+	    that.axios({
+				method: "post",
+				url: 'http://127.0.0.1:8077/WeChat/user/login?user_account='+mydata.u_account+'&user_password='+mydata.u_password,
+				data:Qs.stringify(mydata)
+			})
+			.then(function(res) {
 				console.log(res);
 			})
-			 .catch(function(err) {
+			.catch(function(err) {
 				console.log(err);
 			});
-			 /*在这里进行跨域请求*/
-		 that.$router.push("main");
+		//TODO 判断
+		that.$router.push("main");
     }
+	
+	handleRegister() {
+		
+	}
   }
 };
 </script>
