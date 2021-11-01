@@ -78,9 +78,9 @@ export default {
 		that.$router.push("main");
     }
 	
-	handleRegister() {
-		
-	}
+    handleRegister() {
+      
+    }
   }
 };
 </script>
