@@ -76,11 +76,10 @@ export default {
 			});
 		//TODO 判断
 		that.$router.push("main");
-    }
+    },
 	
-	handleRegister() {
-		
-	}
+    handleRegister() {
+    }
   }
 };
 </script>

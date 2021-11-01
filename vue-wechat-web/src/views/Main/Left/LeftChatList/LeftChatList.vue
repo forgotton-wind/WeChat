@@ -45,11 +45,11 @@ export default {
           icon: "left-chat-list-tab-linkman",
           tab: TabLinkman
         },
-        {
-          title: "文章",
-          icon: "left-chat-list-tab-article",
-          tab: TabArticle
-        }
+        // {
+        //   title: "文章",
+        //   icon: "left-chat-list-tab-article",
+        //   tab: TabArticle
+        // }
       ]
     };
   },
