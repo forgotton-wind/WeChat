@@ -51,7 +51,7 @@ export default {
       isLogin: true,
 	  account:'',
 	  password:'',
-	  confirm_password
+	  confirm_password:''
     };
 
   },
