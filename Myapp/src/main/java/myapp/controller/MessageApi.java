@@ -2,7 +2,6 @@ package myapp.controller;
 
 import com.sun.istack.internal.NotNull;
 import io.swagger.annotations.*;
-import myapp.model.UserPo;
 import myapp.util.RespResult;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,8 +13,9 @@ public interface MessageApi {
     @RequestMapping(value = "/user/login",
             produces = { "application/json" },
             method = RequestMethod.POST)
-    ResponseEntity<RespResult> messageTransmit(@NotNull @ApiParam(value = "发送者id", required = true) @RequestParam(value = "mFromId") Integer mFromId,
-                                         @NotNull @ApiParam(value = "接受者id", required = true) @RequestParam(value = "mToId") Integer mToId,
-                                         @NotNull @ApiParam(value = "消息", required = true) @RequestParam(value = "message") String message
+    ResponseEntity<RespResult> messageTransmit(@NotNull @ApiParam(value = "发送者id", required = true) @RequestParam(value = "m_from_id") Integer mFromId,
+                                         @NotNull @ApiParam(value = "接受者id", required = true) @RequestParam(value = "m_to_id") Integer mToId,
+                                         @NotNull @ApiParam(value = "消息内容", required = true) @RequestParam(value = "content") String content,
+                                         @NotNull @ApiParam(value = "消息类型", required = true) @RequestParam(value = "message_type") Integer type
     );
 }
