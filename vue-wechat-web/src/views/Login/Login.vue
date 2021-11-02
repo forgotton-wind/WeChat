@@ -70,13 +70,15 @@ export default {
         data:Qs.stringify(mydata)
       })
       .then(function(res) {
-        console.log(res);
+        if (res.data.msg=="登录成功!") {
+          that.$router.push("main");
+        } else {
+          alert(res.data.msg);
+        }
       })
       .catch(function(err) {
         console.log(err);
       });
-      //TODO 判断
-      that.$router.push("main");
     },
 	
     handleRegister() {
@@ -93,14 +95,15 @@ export default {
           data:Qs.stringify(mydata)
         })
         .then(function(res) {
-          console.log(res);
+          if (res.data.msg=="注册成功!") {
+            //TODO 切回登录界面
+          } else {
+            alert(res.data.msg);
+          }
         })
         .catch(function(err) {
           console.log(err);
         });
-
-        //TODO 注册成功有提示，并自动跳转到登录页
-        //TODO 不成功...
     }
   }
 };
