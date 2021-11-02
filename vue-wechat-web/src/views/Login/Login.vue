@@ -44,6 +44,7 @@
 <script>
 import axios from 'axios'
 import Qs from 'qs'
+
 export default {
   name: "Login",
   data() {
@@ -76,7 +77,7 @@ export default {
       });
       //TODO 判断
       that.$router.push("main");
-      },
+    },
 	
     handleRegister() {
         var that = this;
@@ -87,9 +88,19 @@ export default {
         }
 
         that.axios({
-          method: "put",
-          url: 'http://127.0.0.1:8077/WeChat/user/register?user_account='+mydata.u_account+'&user_password='+mydata.u_password+'user_password2='+mydata.u_password2,
+          method: "post",
+          url: 'http://127.0.0.1:8077/WeChat/user/register?user_account='+mydata.u_account+'&user_password='+mydata.u_password+'&confirm_password='+mydata.u_password2,
+          data:Qs.stringify(mydata)
         })
+        .then(function(res) {
+          console.log(res);
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
+
+        //TODO 注册成功有提示，并自动跳转到登录页
+        //TODO 不成功...
     }
   }
 };
