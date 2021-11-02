@@ -1,3 +1,3 @@
-node_modules
+vue-wechat-web/node_modules
 logs
-application-dev.properties
+Myapp/src/main/resources/application-dev.properties
