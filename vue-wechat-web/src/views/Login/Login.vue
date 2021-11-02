@@ -32,7 +32,7 @@
         <div class="login-main-input">
           <input v-model="account" class="login-input" type="text" placeholder="账号" />
           <input v-model="password" class="login-input" type="password" placeholder="密码" />
-          <input v-model="confirm_password" class="login-input" type="password" placeholder="确认密码" />
+          <input v-model="password2" class="login-input" type="password" placeholder="确认密码" />
           <button class="login-btn login-btn-register" v-on:click="handleRegister">注 册</button>
         </div>
       </div>
@@ -51,35 +51,45 @@ export default {
       isLogin: true,
 	  account:'',
 	  password:'',
-	  confirm_password:''
+	  password2:''
     };
 
   },
   methods: {
     handleLogin() {
-		var that = this;
-		var mydata={
-			u_account:that.account,
-			u_password:that.password
-		}
-		//在这里进行跨域请求
-	    that.axios({
-				method: "post",
-				url: 'http://127.0.0.1:8077/WeChat/user/login?user_account='+mydata.u_account+'&user_password='+mydata.u_password,
-				data:Qs.stringify(mydata)
-			})
-			.then(function(res) {
-				console.log(res);
-			})
-			.catch(function(err) {
-				console.log(err);
-			});
-		//TODO 判断
-		that.$router.push("main");
-    },
+      var that = this;
+      var mydata={
+        u_account:that.account,
+        u_password:that.password
+      }
+      //在这里进行跨域请求
+      that.axios({
+        method: "post",
+        url: 'http://127.0.0.1:8077/WeChat/user/login?user_account='+mydata.u_account+'&user_password='+mydata.u_password,
+        data:Qs.stringify(mydata)
+      })
+      .then(function(res) {
+        console.log(res);
+      })
+      .catch(function(err) {
+        console.log(err);
+      });
+      //TODO 判断
+      that.$router.push("main");
+      },
 	
     handleRegister() {
+        var that = this;
+        var mydata={
+          u_account:that.account,
+          u_password:that.password,
+          u_password2:that.password2
+        }
 
+        that.axios({
+          method: "put",
+          url: 'http://127.0.0.1:8077/WeChat/user/register?user_account='+mydata.u_account+'&user_password='+mydata.u_password+'user_password2='+mydata.u_password2,
+        })
     }
   }
 };
