@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
     public RespResult userRegister(String account, String password1, String password2) {
         UserPo userPo1 = userPoMapper.selectUserByLoginName(account);
         if(userPo1!=null) {
-            return RespResult.fail("注册失败，该用户已存在！");
+            return RespResult.fail("注册失败，该用户已存在!");
         } else if (!password1.equals(password2)) {
             return RespResult.fail("注册失败，两次输入的密码不一致!");
         } else {
@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
             userPo.setPassword(MD5Util.encodeMd5(password1));
 
             userPoMapper.insertSelective(userPo);
-            return RespResult.success("注册成功！");
+            return RespResult.success("注册成功!");
         }
     }
 
@@ -61,6 +61,6 @@ public class UserServiceImpl implements UserService {
             userPo.setPassword(MD5Util.encodeMd5(userPo.getPassword()));
         }
         userPoMapper.updateByPrimaryKeySelective(userPo);
-        return RespResult.success("用户信息修改成功！");
+        return RespResult.success("用户信息修改成功!");
     }
 }

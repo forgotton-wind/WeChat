@@ -50,9 +50,9 @@ export default {
   data() {
     return {
       isLogin: true,
-	  account:'',
-	  password:'',
-	  password2:''
+      account:'',
+      password:'',
+      password2:''
     };
 
   },
@@ -96,7 +96,8 @@ export default {
         })
         .then(function(res) {
           if (res.data.msg=="注册成功!") {
-            //TODO 切回登录界面
+            alert(res.data.msg);
+            that.isLogin = true;
           } else {
             alert(res.data.msg);
           }
