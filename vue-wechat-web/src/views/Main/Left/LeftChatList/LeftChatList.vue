@@ -23,7 +23,7 @@
 <script>
 import TabChat from "./Tabs/TabChat";
 import TabLinkman from "./Tabs/TabLinkman";
-import TabArticle from "./Tabs/TabArticle";
+import TabArticle from "./Tabs/TabAddfriend";
 
 export default {
   name: "LeftChatList",
@@ -45,11 +45,11 @@ export default {
           icon: "left-chat-list-tab-linkman",
           tab: TabLinkman
         },
-        // {
-        //   title: "文章",
-        //   icon: "left-chat-list-tab-article",
-        //   tab: TabArticle
-        // }
+        {
+          title: "添加好友",
+          icon: "left-chat-list-tab-addfriend",
+          tab: TabArticle
+        }
       ]
     };
   },
@@ -118,12 +118,12 @@ export default {
   background-size: 487px 462px;
 }
 
-.left-chat-list-tab-article {
+.left-chat-list-tab-addfriend {
   background-position: -376px -322px;
   background-size: 487px 462px;
 }
 
-.left-chat-list-tab-article-selected {
+.left-chat-list-tab-addfriend-selected {
   background-position: -304px -281px;
   background-size: 487px 462px;
 }

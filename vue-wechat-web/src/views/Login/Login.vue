@@ -17,6 +17,7 @@
           注册
         </div>
       </div>
+
       <div class="login-main-wrap" v-if="isLogin">
         <div class="login-main-title">欢迎登录</div>
         <div class="login-main-input">
