@@ -6,9 +6,7 @@
         <result column="u_account" jdbcType="VARCHAR" property="userAccount" />
         <result column="u_password" jdbcType="VARCHAR" property="password" />
     </resultMap>
-    <sql id="Base_Column_List">
-        u_id, u_account, u_password,
-    </sql>
+
     <!--根据用户名查询-->
     <select id="selectUserByLoginName" resultMap="BaseResultMap" parameterType="java.lang.String" >
         select *
