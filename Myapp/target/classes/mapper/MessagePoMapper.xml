@@ -14,12 +14,25 @@
     <insert id="insertMessage" parameterType="myapp.model.MessagePo">
         insert into t_message
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            m_fromuid, m_touid, m_content, m_typeid,
+            m_fromuid, m_touid, m_content, m_typeid, m_time
         </trim>
         values
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            #{fromId,jdbcType=INTEGER}, #{toId,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{typeId,jdbcType=INTEGER},
+            #{fromId,jdbcType=INTEGER}, #{toId,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{typeId,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP}
         </trim>
     </insert>
+
+    <select id="inquireMessage" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select * from t_message
+        where m_touid = #{id,jdbcType=INTEGER}
+        and m_status = 1
+    </select>
+    
+    <update id="setMessageReaded">
+        update t_message
+        set m_status = 2
+        where m_fromuid = #{fromId,jdbcType=INTEGER}
+        and m_touid = #{toId,jdbcType=INTEGER}
+    </update>
 
 </mapper>
