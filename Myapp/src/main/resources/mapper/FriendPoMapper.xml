@@ -9,7 +9,7 @@
     </resultMap>
 
     <insert id="addFriend" parameterType="myapp.model.FriendPo">
-        insert into t_user
+        insert into t_friend
         <trim prefix="(" suffix=")" suffixOverrides=",">
             f_uid, f_fid,
         </trim>

@@ -1,5 +1,8 @@
 package myapp.mapper;
 
+import myapp.model.FriendPo;
+import myapp.model.MessagePo;
+
 public interface FriendPoMapper {
-    Integer addFriend(Integer uId, Integer fId);
+    Integer addFriend(FriendPo friendPo);
 }
