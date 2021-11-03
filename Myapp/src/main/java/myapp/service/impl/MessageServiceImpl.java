@@ -53,6 +53,7 @@ public class MessageServiceImpl implements MessageService {
 
             每个账号登录在线后，前端自己向后端申请遍历一下message表，把历史消息显示出来（或者设置个数量限制？）
             也可以不搞这个（有时间再完善）
+            未读的消息一定要显示
 
 
             核心问题：

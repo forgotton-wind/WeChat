@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @Api(value = "Message", description = "the Message API")
 public interface MessageApi {
     @ApiOperation(value = "好友消息发送", notes = "Friends message transmit", response = RespResult.class, tags={ "User", })
-    @RequestMapping(value = "/user/login",
+    @RequestMapping(value = "/user/message",
             produces = { "application/json" },
             method = RequestMethod.POST)
     ResponseEntity<RespResult> messageTransmit(@NotNull @ApiParam(value = "发送者id", required = true) @RequestParam(value = "m_from_id") Integer mFromId,
