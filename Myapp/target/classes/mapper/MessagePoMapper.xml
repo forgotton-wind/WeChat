@@ -22,4 +22,9 @@
         </trim>
     </insert>
 
+    <select id="inquireMessage" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select * from t_message
+        where m_touid = #{id,jdbcType=INTEGER}
+    </select>
+
 </mapper>

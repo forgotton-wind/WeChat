@@ -70,6 +70,7 @@ export default {
         data:Qs.stringify(mydata)
       })
       .then(function(res) {
+        console.log(res);
         if (res.data.msg=="登录成功!") {
           that.$router.push("main");
         } else {
@@ -95,6 +96,7 @@ export default {
           data:Qs.stringify(mydata)
         })
         .then(function(res) {
+          console.log(res);
           if (res.data.msg=="注册成功!") {
             alert(res.data.msg);
             that.isLogin = true;

@@ -23,6 +23,7 @@ public class MessageServiceImpl implements MessageService {
         messagePo.setContent(content);
         messagePo.setTypeId(type);
         messagePo.setTime(new Date());
+        messagePo.setStatus(1);
 
         messagePoMapper.insertMessage(messagePo);
 
@@ -66,7 +67,8 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public RespResult messageInquire(Integer id) {
         List<MessagePo> list  = messagePoMapper.inquireMessage(id);
-        if (list == null) {
+
+        if (list.isEmpty()) {
             return RespResult.success("无新消息");
         }
         return RespResult.success("有新消息", list);

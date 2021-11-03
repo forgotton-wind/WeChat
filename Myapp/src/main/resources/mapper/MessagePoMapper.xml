@@ -25,6 +25,14 @@
     <select id="inquireMessage" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select * from t_message
         where m_touid = #{id,jdbcType=INTEGER}
+        and m_status = 1
     </select>
+    
+    <update id="setMessageReaded">
+        update t_message
+        set m_status = 2
+        where m_fromuid = #{fromId,jdbcType=INTEGER}
+        and m_touid = #{toId,jdbcType=INTEGER}
+    </update>
 
 </mapper>
