@@ -14,11 +14,11 @@
     <insert id="insertMessage" parameterType="myapp.model.MessagePo">
         insert into t_message
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            m_fromuid, m_touid, m_content, m_typeid,
+            m_fromuid, m_touid, m_content, m_typeid, m_time
         </trim>
         values
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            #{fromId,jdbcType=INTEGER}, #{toId,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{typeId,jdbcType=INTEGER},
+            #{fromId,jdbcType=INTEGER}, #{toId,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{typeId,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP}
         </trim>
     </insert>
 

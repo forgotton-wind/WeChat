@@ -1,5 +1,6 @@
 package myapp.controller;
 
+import com.aliyun.credentials.http.HttpResponse;
 import myapp.service.MessageService;
 import myapp.util.RespResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,12 @@ public class MessageController extends BaseController implements MessageApi {
     @Override
     public ResponseEntity<RespResult> messageTransmit(Integer mFromId, Integer mToId, String content, Integer type) {
         RespResult respResult = messageService.messageTransmit(mFromId, mToId, content, type);
+        return new ResponseEntity<RespResult>(respResult, HttpStatus.OK);
+    }
+
+    @Override
+    public  ResponseEntity<RespResult> messageInquire(Integer id) {
+        RespResult respResult = messageService.messageInquire(id);
         return new ResponseEntity<RespResult>(respResult, HttpStatus.OK);
     }
 }

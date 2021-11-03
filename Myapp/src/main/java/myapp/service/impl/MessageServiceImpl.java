@@ -6,7 +6,9 @@ import myapp.service.MessageService;
 import myapp.util.RespResult;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class MessageServiceImpl implements MessageService {
@@ -21,8 +23,6 @@ public class MessageServiceImpl implements MessageService {
         messagePo.setContent(content);
         messagePo.setTypeId(type);
         messagePo.setTime(new Date());
-
-        //TODO 时间可能要处理格式才行
 
         messagePoMapper.insertMessage(messagePo);
 
@@ -61,5 +61,14 @@ public class MessageServiceImpl implements MessageService {
          */
 
         return RespResult.success("发送成功!");
+    }
+
+    @Override
+    public RespResult messageInquire(Integer id) {
+        List<MessagePo> list  = messagePoMapper.inquireMessage(id);
+        if (list == null) {
+            return RespResult.success("无新消息");
+        }
+        return RespResult.success("有新消息", list);
     }
 }
