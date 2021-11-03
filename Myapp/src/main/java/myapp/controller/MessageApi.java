@@ -25,4 +25,12 @@ public interface MessageApi {
             method = RequestMethod.POST)
     ResponseEntity<RespResult> messageInquire(@NotNull @ApiParam(value = "查询id", required = true) @RequestParam(value = "id") Integer id
     );
+
+    @ApiOperation(value = "设置消息已读", notes = "Friends message Inquire", response = RespResult.class, tags={ "Message", })
+    @RequestMapping(value = "/message/setReaded",
+            produces = { "application/json" },
+            method = RequestMethod.POST)
+    ResponseEntity<RespResult> setMessageReaded(@NotNull @ApiParam(value = "发送者id", required = true) @RequestParam(value = "from_id") Integer fromId,
+                                                @NotNull @ApiParam(value = "接受者id", required = true) @RequestParam(value = "to_id") Integer toId
+                                                );
 }

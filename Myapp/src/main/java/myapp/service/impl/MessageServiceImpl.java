@@ -73,4 +73,10 @@ public class MessageServiceImpl implements MessageService {
         }
         return RespResult.success("有新消息", list);
     }
+
+    @Override
+    public RespResult setMessageReaded(Integer fromId, Integer toId) {
+        messagePoMapper.setMessageReaded(fromId, toId);
+        return RespResult.success("修改已读成功");
+    }
 }
