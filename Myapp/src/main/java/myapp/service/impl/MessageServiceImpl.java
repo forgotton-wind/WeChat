@@ -47,10 +47,15 @@ public class MessageServiceImpl implements MessageService {
 
 
             如果  接受者不在线
-            后端发送后得不到返回
+            后端发送后得不到返回（如何判断没有返回）
             消息保持默认状态未读
             等到每个账号登录在线后，前端自己向后端申请遍历一下message表，看下有没有属于自己的未读的消息
             有的话，后端返回，前端显示
+
+
+            核心问题：
+                前端如何侦听指定端口
+                后端如何判断前端不在线，没有返回值
          */
 
         return RespResult.success("发送成功!");
