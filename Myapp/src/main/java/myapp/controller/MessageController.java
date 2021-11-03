@@ -12,7 +12,6 @@ import javax.servlet.annotation.WebFilter;
 
 @WebFilter(filterName = "caseInsensitiveFilter", urlPatterns = "/*")
 @RestController
-
 public class MessageController extends BaseController implements MessageApi {
     @Autowired
     private MessageService messageService;
