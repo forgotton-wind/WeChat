@@ -1,8 +1,7 @@
 package myapp.service;
 
-import myapp.model.UserPo;
 import myapp.util.RespResult;
 
 public interface MessageService {
-
+    RespResult messageTransmit(Integer mFromId, Integer mToId, String content, Integer type);
 }

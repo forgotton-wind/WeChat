@@ -1,6 +1,5 @@
 package myapp.mapper;
 
-import io.swagger.models.auth.In;
 import myapp.model.UserPo;
 
 public interface UserPoMapper {

@@ -1,7 +1,6 @@
 package myapp.controller;
 
-import myapp.model.UserPo;
-import myapp.service.UserService;
+import myapp.service.MessageService;
 import myapp.util.RespResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,8 +18,8 @@ public class MessageController extends BaseController implements MessageApi {
     private MessageService messageService;
 
     @Override
-    public ResponseEntity<RespResult> messageTransmit(Integer mFromId, Integer mToId, String message) {
-        RespResult respResult = messageService.userLogin(mFromId, mToId, message);
+    public ResponseEntity<RespResult> messageTransmit(Integer mFromId, Integer mToId, String content, Integer type) {
+        RespResult respResult = messageService.messageTransmit(mFromId, mToId, content, type);
         return new ResponseEntity<RespResult>(respResult, HttpStatus.OK);
     }
 }

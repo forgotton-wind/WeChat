@@ -9,7 +9,7 @@ import java.util.Date;
 
 public class MessagePo {
     private Integer id;
-    private String context;
+    private String content;
     private Integer status;
     private Date time;
     private Integer typeId;
