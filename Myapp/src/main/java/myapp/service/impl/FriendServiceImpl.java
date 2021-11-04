@@ -1,6 +1,7 @@
 package myapp.service.impl;
 
 import myapp.mapper.FriendPoMapper;
+import myapp.mapper.UserPoMapper;
 import myapp.model.FriendPo;
 import myapp.service.FriendService;
 import myapp.util.RespResult;
@@ -12,9 +13,12 @@ import java.util.List;
 public class FriendServiceImpl implements FriendService {
     @Resource
     FriendPoMapper friendPoMapper;
+    @Resource
+    UserPoMapper userPoMapper;
 
     @Override
-    public RespResult addFriend(Integer uId, Integer fId) {
+    public RespResult addFriend(Integer uId, String fAccount) {
+        Integer fId = userPoMapper.getIdByAccount(fAccount);
         List<FriendPo> list = friendPoMapper.inquireFriend(uId);
         for (FriendPo friendPo: list) {
             if (friendPo.getFId().equals(fId)) {
