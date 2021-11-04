@@ -17,4 +17,11 @@ public interface FriendApi {
     ResponseEntity<RespResult> addFriend(@NotNull @ApiParam(value = "本人id", required = true) @RequestParam(value = "f_uid") Integer uId,
                                          @NotNull @ApiParam(value = "好友id", required = true) @RequestParam(value = "f_fid") Integer fId
     );
+
+    @ApiOperation(value = "查询好友列表", notes = "Inquire Friend", response = RespResult.class, tags={ "Friend", })
+    @RequestMapping(value = "/friend/inquire",
+            produces = { "application/json" },
+            method = RequestMethod.POST)
+    ResponseEntity<RespResult> inquireFriend(@NotNull @ApiParam(value = "本人id", required = true) @RequestParam(value = "f_uid") Integer id
+    );
 }

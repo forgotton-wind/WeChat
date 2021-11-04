@@ -19,4 +19,10 @@ public class FriendController extends BaseController implements FriendApi{
         RespResult respResult = friendService.addFriend(uId, fId);
         return new ResponseEntity<RespResult>(respResult, HttpStatus.OK);
     }
+
+    @Override
+    public ResponseEntity<RespResult> inquireFriend(Integer id) {
+        RespResult respResult = friendService.inquireFriend(id);
+        return new ResponseEntity<RespResult>(respResult, HttpStatus.OK);
+    }
 }
