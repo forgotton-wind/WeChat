@@ -68,6 +68,7 @@ export default {
         }
       }
     },
+
     handleNewChat(kindIndex, lIndex) {
       for (let i = 0; i < this.$store.state.linkmans.length; i++) {
         const linkman = this.$store.state.linkmans[i];
