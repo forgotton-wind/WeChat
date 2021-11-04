@@ -15,14 +15,20 @@ public class FriendController extends BaseController implements FriendApi{
     FriendService friendService;
 
     @Override
-    public ResponseEntity<RespResult> addFriend(Integer uId, String fAccount) {
-        RespResult respResult = friendService.addFriend(uId, fAccount);
+    public ResponseEntity<RespResult> addFriend(Integer uId, Integer fId) {
+        RespResult respResult = friendService.addFriend(uId, fId);
         return new ResponseEntity<RespResult>(respResult, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<RespResult> inquireFriend(Integer id) {
         RespResult respResult = friendService.inquireFriend(id);
+        return new ResponseEntity<RespResult>(respResult, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<RespResult> findFriend(String account) {
+        RespResult respResult = friendService.findFriend(account);
         return new ResponseEntity<RespResult>(respResult, HttpStatus.OK);
     }
 }

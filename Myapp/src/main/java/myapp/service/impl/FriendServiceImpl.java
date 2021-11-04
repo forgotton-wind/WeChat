@@ -3,6 +3,7 @@ package myapp.service.impl;
 import myapp.mapper.FriendPoMapper;
 import myapp.mapper.UserPoMapper;
 import myapp.model.FriendPo;
+import myapp.model.UserPo;
 import myapp.service.FriendService;
 import myapp.util.RespResult;
 import org.springframework.stereotype.Service;
@@ -17,8 +18,13 @@ public class FriendServiceImpl implements FriendService {
     UserPoMapper userPoMapper;
 
     @Override
-    public RespResult addFriend(Integer uId, String fAccount) {
-        Integer fId = userPoMapper.getIdByAccount(fAccount);
+    public RespResult addFriend(Integer uId, Integer fId) {
+        if (null == fId) {
+            return RespResult.fail("此账号不存在");
+        }
+        if (fId.equals(uId)) {
+            return RespResult.fail("不能添加自己");
+        }
         List<FriendPo> list = friendPoMapper.inquireFriend(uId);
         for (FriendPo friendPo: list) {
             if (friendPo.getFId().equals(fId)) {
@@ -37,5 +43,12 @@ public class FriendServiceImpl implements FriendService {
     public RespResult inquireFriend(Integer id) {
         List<FriendPo> list = friendPoMapper.inquireFriend(id);
         return RespResult.success("查询成功", list);
+    }
+
+    @Override
+    public  RespResult findFriend(String account) {
+        UserPo userPo = friendPoMapper.findFriend(account);
+        if (null==userPo) return RespResult.fail("账号不存在");
+        return RespResult.success("查找成功", userPo);
     }
 }

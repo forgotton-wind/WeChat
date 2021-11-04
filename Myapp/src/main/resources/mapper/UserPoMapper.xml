@@ -5,6 +5,16 @@
         <result column="u_id" jdbcType="INTEGER" property="uid" />
         <result column="u_account" jdbcType="VARCHAR" property="userAccount" />
         <result column="u_password" jdbcType="VARCHAR" property="password" />
+        <result column="u_state" jdbcType="INTEGER" property="state" />
+        <result column="u_gravatar" jdbcType="VARCHAR" property="gravatar" />
+        <result column="u_nickname" jdbcType="VARCHAR" property="nickName" />
+        <result column="u_name" jdbcType="VARCHAR" property="name" />
+        <result column="u_sex" jdbcType="VARCHAR" property="sex" />
+        <result column="u_birthday" jdbcType="TIMESTAMP" property="birthday" />
+        <result column="u_email" jdbcType="VARCHAR" property="email" />
+        <result column="u_schoolname" jdbcType="VARCHAR" property="schoolName" />
+        <result column="u_city" jdbcType="VARCHAR" property="city" />
+        <result column="u_bloodtype" jdbcType="VARCHAR" property="bloodType" />
     </resultMap>
 
     <!--根据用户名查询-->

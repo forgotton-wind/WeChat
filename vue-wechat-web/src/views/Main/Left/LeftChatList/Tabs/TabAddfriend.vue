@@ -8,8 +8,8 @@
       >
         <div class="add-friend-title">添加好友</div>
         <div class="add-friend-input">
-          <input v-model="friendname" class="add-friend-friendname" type="text" placeholder="账号" />
-          <button class="add-friend-btn" v-on:click="handleAddfriend">
+          <input v-model="friendAccount" class="add-friend-friendAccount" type="text" placeholder="账号" />
+          <button class="add-friend-btn" v-on:click="handlefindfriend">
             查 找 账 号
           </button>
         </div>
@@ -24,8 +24,8 @@
     >
       <div class="add-group-title">添加群组</div>
       <div class="add-group-input">
-        <input v-model="groupname" class="add-group-groupname" type="text" placeholder="群号" />
-        <button class="add-group-btn" v-on:click="handleAddgroup">
+        <input v-model="groupAccount" class="add-group-groupAccount" type="text" placeholder="群号" />
+        <button class="add-group-btn" v-on:click="handlefindgroup">
           添 加 群 组
         </button>
       </div>
@@ -61,14 +61,17 @@
 <script>
 // import avatar from "@/assets/default.png";
 // import img from "@/assets/background.png";
+import axios from 'axios'
+import Qs from 'qs'
+import pinyin from 'js-pinyin'
 
 export default {
   name: "TabChat",
   data() {
     return {
       articles: [],
-      friendname: '',
-      groupname: '',
+      friendAccount: '',
+      groupAccount: '',
       // currentArticle: -1
     };
   },
@@ -86,33 +89,79 @@ export default {
   },
   methods: {
     //根据账号，添加好友
-    handleAddfriend() {
-        var that = this;
-        var mydata={
-          u_friendname:that.friendname,
-        }
+    handlefindfriend() {
+      var that = this;
+      var mydata={
+        u_id: that.$store.state.myself.id,
+        u_friendAccount:that.friendAccount,
+      }
 
-        that.axios({
-          method: "post",
-          url: 'http://127.0.0.1:8077/WeChat/user/register?user_account='+mydata.u_account+'&user_password='+mydata.u_password+'&confirm_password='+mydata.u_password2,
-          data:Qs.stringify(mydata)
-        })
-        .then(function(res) {
-          if (res.data.msg=="添加好友成功!") {
-            alert(res.data.msg);
-          } else {
-            alert(res.data.msg);
-          }
-        })
-        .catch(function(err) {
-          console.log(err);
-        });
+      that.axios({
+        method: "post",
+        url: 'http://127.0.0.1:8077/WeChat/friend/find?account='+mydata.u_friendAccount,
+        data:Qs.stringify(mydata)
+      })
+      .then(function(res) {
+        console.log(res);
+        if (res.data.msg=="查找成功") {
+          let name = res.data.data.nickName
+          let char = ''
+          pinyin.setOptions({checkPolyphone:false,charCase:0});
+          char = pinyin.getCamelChars(name)
+          let kindIndex = char[0];
+          that.$store.commit("getIndex", kindIndex);
+          console.log(kindIndex);
+          console.log(that.$store.state.lIndex);
+          alert(res.data.msg);
+        } else {
+          alert(res.data.msg);
+        }
+      })
+      .catch(function(err) {
+        console.log(err);
+      });
+
+      // this.currentLinkman = "k" + kindIndex + "l" + lIndex;
+      // const id = this.kinds[kindIndex].linkmans[lIndex].id;
+
+      // const linkmans = this.$store.state.linkmans;
+      // this.$store.commit("setCurrentRight", 1);
+      // for (let i = 0; i < linkmans.length; i++) {
+      //   if (id === linkmans[i].id) {
+      //     this.$store.commit("setCurrentLinkman", i);
+      //     break;
+      //   }
+      // }
+
+        // var that = this;
+        // var mydata={
+        //   u_id: that.$store.state.myself.id,
+        //   u_friendAccount:that.friendAccount,
+        // }
+
+        // that.axios({
+        //   method: "post",
+        //   url: 'http://127.0.0.1:8077/WeChat/friend/add?f_uid='+mydata.u_id+'&f_account='+mydata.u_friendAccount,
+        //   data:Qs.stringify(mydata)
+        // })
+        // .then(function(res) {
+        //   console.log(res);
+        //   if (res.data.msg=="添加好友成功") {
+        //     alert(res.data.msg);
+        //   } else {
+
+        //     alert(res.data.msg);
+        //   }
+        // })
+        // .catch(function(err) {
+        //   console.log(err);
+        // });
     },
     //根据群号，添加好友群组
-    handleAddgroup() {
+    handlefindgroup() {
         var that = this;
         var mydata={
-          u_groupname:that.groupname,
+          u_groupAccount:that.groupAccount,
         }
 
         that.axios({
@@ -124,6 +173,7 @@ export default {
           if (res.data.msg=="添加群组成功!") {
             alert(res.data.msg);
           } else {
+
             alert(res.data.msg);
           }
         })
@@ -165,7 +215,7 @@ textarea::-webkit-input-placeholder {
   color: #d4d4d4;
 }
 
-.add-friend-friendname {
+.add-friend-friendAccount {
   margin-top: 5px;
   padding: 10px 10px;
   line-height: 10px;
@@ -175,12 +225,13 @@ textarea::-webkit-input-placeholder {
   outline: none;
   transition: 0.4s;
   background-color: #272c24;
-;
+  color: rgb(253, 255, 247);
 }
 
-.add-friend-friendname:focus {
+.add-friend-friendAccount:focus {
   border-color: #272c24;
   transition: 0.4s;
+  color: rgb(253, 255, 247);
 }
 
 .add-friend-btn {
@@ -218,7 +269,7 @@ textarea::-webkit-input-placeholder {
   color: #d4d4d4;
 }
 
-.add-group-groupname {
+.add-group-groupAccount {
   margin-top: 5px;
   padding: 10px 10px;
   line-height: 10px;
@@ -228,12 +279,13 @@ textarea::-webkit-input-placeholder {
   outline: none;
   transition: 0.4s;
   background-color: #272c24;
-;
+  color: rgb(253, 255, 247);
 }
 
-.add-group-groupname:focus {
+.add-group-groupAccount:focus {
   border-color: #272c24;
   transition: 0.4s;
+  color: rgb(253, 255, 247);
 }
 
 .add-group-btn {

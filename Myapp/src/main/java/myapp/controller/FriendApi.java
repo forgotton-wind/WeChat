@@ -15,7 +15,7 @@ public interface FriendApi {
             produces = { "application/json" },
             method = RequestMethod.POST)
     ResponseEntity<RespResult> addFriend(@NotNull @ApiParam(value = "本人id", required = true) @RequestParam(value = "f_uid") Integer uId,
-                                         @NotNull @ApiParam(value = "好友账号", required = true) @RequestParam(value = "f_account") String fAccount
+                                         @NotNull @ApiParam(value = "好友id", required = true) @RequestParam(value = "f_id") Integer fId
     );
 
     @ApiOperation(value = "查询好友列表", notes = "Inquire Friend", response = RespResult.class, tags={ "Friend", })
@@ -23,5 +23,12 @@ public interface FriendApi {
             produces = { "application/json" },
             method = RequestMethod.POST)
     ResponseEntity<RespResult> inquireFriend(@NotNull @ApiParam(value = "本人id", required = true) @RequestParam(value = "f_uid") Integer id
+    );
+
+    @ApiOperation(value = "查找好友", notes = "Find Friend", response = RespResult.class, tags={ "Friend", })
+    @RequestMapping(value = "/friend/find",
+            produces = { "application/json" },
+            method = RequestMethod.POST)
+    ResponseEntity<RespResult> findFriend(@NotNull @ApiParam(value = "查找账号", required = true) @RequestParam(value = "account") String account
     );
 }
