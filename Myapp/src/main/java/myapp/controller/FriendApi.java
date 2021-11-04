@@ -13,7 +13,7 @@ public interface FriendApi {
     @ApiOperation(value = "添加好友", notes = "Add Friend", response = RespResult.class, tags={ "Friend", })
     @RequestMapping(value = "/friend/add",
             produces = { "application/json" },
-            method = RequestMethod.PUT)
+            method = RequestMethod.POST)
     ResponseEntity<RespResult> addFriend(@NotNull @ApiParam(value = "本人id", required = true) @RequestParam(value = "f_uid") Integer uId,
                                          @NotNull @ApiParam(value = "好友id", required = true) @RequestParam(value = "f_fid") Integer fId
     );
