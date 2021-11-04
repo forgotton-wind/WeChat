@@ -16,45 +16,21 @@
       </div>
     </div>
     
-  <div class="add-group-wrap">  
-    <div
-      class="add-group-main"
-      v-for="(article, index) in articles"
-      :key="'article' + index"
-    >
-      <div class="add-group-title">添加群组</div>
-      <div class="add-group-input">
-        <input v-model="groupAccount" class="add-group-groupAccount" type="text" placeholder="群号" />
-        <button class="add-group-btn" v-on:click="handlefindgroup">
-          添 加 群 组
-        </button>
+    <div class="add-group-wrap">  
+      <div
+        class="add-group-main"
+        v-for="(article, index) in articles"
+        :key="'article' + index"
+      >
+        <div class="add-group-title">添加群组</div>
+        <div class="add-group-input">
+          <input v-model="groupAccount" class="add-group-groupAccount" type="text" placeholder="群号" />
+          <button class="add-group-btn" v-on:click="handlefindgroup">
+            添 加 群 组
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-
-    <!-- <div
-      class="article"
-      v-for="(article, index) in articles"
-      :key="'article' + index"
-    >
-      <div class="info-wrap">
-        <div class="avatar-wrap">
-          <img :src="article.avatar" class="avatar" />
-        </div>
-        <div class="username">{{ article.username }}</div>
-        <div class="time">{{ article.time }}</div>
-      </div>
-      <div
-        class="detail-wrap"
-        :class="{ 'detail-wrap-selected': currentArticle === index }"
-        @click="currentArticle = index"
-      >
-        <div class="title">{{ article.title }}</div>
-        <div class="img-wrap">
-          <img :src="article.img" class="img" />
-        </div>
-      </div> 
-    </div> -->
   </div>
 </template>
 
@@ -76,15 +52,6 @@ export default {
     };
   },
   mounted() {
-    // for (let i = 0; i < 20; i++) {
-    //   this.articles.push({
-    //     avatar,
-    //     username: "昵称",
-    //     time: "20:13",
-    //     title: "这是文章标题",
-    //     img
-    //   });
-    // }
     this.articles.push("");
   },
   methods: {
@@ -104,15 +71,27 @@ export default {
       .then(function(res) {
         console.log(res);
         if (res.data.msg=="查找成功") {
+          let f_id = res.data.data.uid
           let name = res.data.data.nickName
           let char = ''
           pinyin.setOptions({checkPolyphone:false,charCase:0});
           char = pinyin.getCamelChars(name)
           let kindIndex = char[0];
           that.$store.commit("getIndex", kindIndex);
+          let lIndex = that.$store.state.lIndex;
           console.log(kindIndex);
-          console.log(that.$store.state.lIndex);
-          alert(res.data.msg);
+          console.log(lIndex);
+
+          console.log(f_id);
+          const linkmans = that.$store.state.linkmans;
+          console.log(linkmans.length);
+          for (let i = 0; i < linkmans.length; i++) {
+            if (f_id === linkmans[i].id && linkmans[i].type != "group") {
+              that.$store.commit("setCurrentRight", 1);
+              that.$store.commit("setCurrentLinkman", i);
+              break;
+            }
+          }
         } else {
           alert(res.data.msg);
         }
@@ -120,18 +99,6 @@ export default {
       .catch(function(err) {
         console.log(err);
       });
-
-      // this.currentLinkman = "k" + kindIndex + "l" + lIndex;
-      // const id = this.kinds[kindIndex].linkmans[lIndex].id;
-
-      // const linkmans = this.$store.state.linkmans;
-      // this.$store.commit("setCurrentRight", 1);
-      // for (let i = 0; i < linkmans.length; i++) {
-      //   if (id === linkmans[i].id) {
-      //     this.$store.commit("setCurrentLinkman", i);
-      //     break;
-      //   }
-      // }
 
         // var that = this;
         // var mydata={

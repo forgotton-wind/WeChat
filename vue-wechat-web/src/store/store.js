@@ -49,7 +49,7 @@ const store = new Vuex.Store({
     ],
     linkmans: [
       {
-        id: "g1",
+        id: 2,
         type: "group",
         members: ["p1", "p2"],
         nickname: "这是群组",
@@ -59,7 +59,7 @@ const store = new Vuex.Store({
         avatar: group
       },
       {
-        id: "p1",
+        id: 2,
         type: "A",
         nickname: "用户一",
         gender: "",
@@ -68,7 +68,7 @@ const store = new Vuex.Store({
         avatar
       },
       {
-        id: "p2",
+        id: 3,
         type: "B",
         nickname: "用户二",
         gender: "",
