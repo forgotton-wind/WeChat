@@ -56,6 +56,7 @@ export default {
   },
   methods: {
     handleShowDetail(kindIndex, lIndex) {
+      this.$store.state.linkOrTemp = 1;
       this.currentLinkman = "k" + kindIndex + "l" + lIndex;
       const id = this.kinds[kindIndex].linkmans[lIndex].id;
 

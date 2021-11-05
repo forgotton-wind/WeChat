@@ -21,6 +21,7 @@ const store = new Vuex.Store({
     currentRight: 0,
     currentLinkman: 0,
     lIndex: 0,
+    linkOrTemp: 1,
     myself: {
       id: "1",
       avatar: user,
@@ -47,6 +48,14 @@ const store = new Vuex.Store({
         ]
       }
     ],
+    tempLinkman: {
+      id: 1,
+      nickname: "",
+      gender: "",
+      alias: "",
+      region: "",
+      avatar
+    },
     linkmans: [
       {
         id: 2,

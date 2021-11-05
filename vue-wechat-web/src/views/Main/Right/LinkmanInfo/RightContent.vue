@@ -1,10 +1,14 @@
 <template>
   <div class="right-content-wrap">
-    <img class="avatar" :src="linkman.avatar" />
-    <h4 class="nickname">
+    <img v-if="linkOrTemp" class="avatar" :src="linkman.avatar" />
+    <img v-else class="avatar" :src="tempLinkman.avatar" />
+    <h4 v-if="linkOrTemp" class="nickname">
       {{ linkman.alias ? linkman.alias : linkman.nickname }}
     </h4>
-    <button class="sendmessage" @click="sendMessage">发消息</button>
+    <h4 v-else class="nickname">
+      {{ tempLinkman.alias ? tempLinkman.alias : tempLinkman.nickname }}
+    </h4>
+    <button v-if="isfriend" class="sendmessage" @click="sendMessage">发消息</button>
     <button v-if="isfriend" class="delfriend" @click="delFriend">删除好友</button>
     <button v-else class="addfriend" @click="addFriend">添加好友</button>
   </div>
@@ -17,13 +21,19 @@ export default {
   name: "RightContent",
   data(){
     return {
-      isfriend: false,
+      isfriend: false
     };
   },
   computed: {
     linkman() {
       const currentLinkman = this.$store.state.currentLinkman;
       return this.$store.state.linkmans[currentLinkman];
+    },
+    tempLinkman() {
+      return this.$store.state.tempLinkman;
+    },
+    linkOrTemp() {
+      return this.$store.state.linkOrTemp;
     }
   },
   methods: {
