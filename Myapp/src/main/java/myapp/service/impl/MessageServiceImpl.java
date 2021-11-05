@@ -65,7 +65,7 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public RespResult messageInquire(Integer id) {
-        List<MessagePo> list  = messagePoMapper.inquireMessage(id);
+        List<MessagePo> list = messagePoMapper.inquireMessage(id);
 
         if (list.isEmpty()) {
             return RespResult.success("无新消息");

@@ -18,4 +18,15 @@
             #{uId,jdbcType=INTEGER}, #{fId,jdbcType=INTEGER},
         </trim>
     </insert>
+
+    <select id="inquireFriend" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select *
+        from t_friend
+        where f_uid = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="findFriend" parameterType="java.lang.String" resultMap="myapp.mapper.UserPoMapper.BaseResultMap">
+        select * from t_user
+        where u_account = #{account,jdbcType=VARCHAR}
+    </select>
 </mapper>
