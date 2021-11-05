@@ -28,13 +28,6 @@ import avatar from "@/assets/default.png";
 
 export default {
   name: "RightContent",
-  data(){
-    return {
-      isgroup: false,
-      isingroup: false,
-      isfriend: false,
-    };
-  },
   computed: {
     linkman() {
       const currentLinkman = this.$store.state.currentLinkman;
@@ -45,6 +38,15 @@ export default {
     },
     linkOrTemp() {
       return this.$store.state.linkOrTemp;
+    },
+    isgroup() {
+      return thid.$store.state.isgroup;
+    },
+    isingroup() {
+      return this.$store.state.isingroup;
+    },
+    isfriend() {
+      return this.$store.state.isfriend;
     }
   },
   methods: {
@@ -65,7 +67,40 @@ export default {
     },
 
     addFriend() {
+      var that = this;
+      var mydata={
+        u_id: that.$store.state.myself.id,
+        f_id: that.$store.state.tempLinkman.id,
+      }
 
+      that.axios({
+        method: "post",
+        url: 'http://127.0.0.1:8077/WeChat/friend/add?f_uid='+mydata.u_id+'&f_id='+mydata.f_id,
+        data:Qs.stringify(mydata)
+      })
+      .then(function(res) {
+        console.log(res);
+        if (res.data.msg=="添加好友成功") {
+
+          //TODO 没有nickname(根据账号的话，要考虑英文开头)
+          let nickname = that.$store.state.tempLinkman.nickname;
+
+          //默认中文昵称
+          let char = ''
+          pinyin.setOptions({checkPolyphone:false,charCase:0});
+          char = pinyin.getCamelChars(nickname)
+          let type = char[0];
+          that.$store.state.tempLinkman.type = type;
+
+          that.$store.commit("addLinkman");
+          alert(res.data.msg);
+        } else {
+          alert(res.data.msg);
+        }
+      })
+      .catch(function(err) {
+        console.log(err);
+      });
     },
 
     delFriend() {
