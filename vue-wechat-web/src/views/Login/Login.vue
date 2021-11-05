@@ -99,7 +99,7 @@ export default {
             that.$store.state.tempLinkman.city = linkman.city
             that.$store.state.tempLinkman.bloodtype = linkman.bloodType
             that.$store.state.tempLinkman.avatar = linkman.gravatar
-            that.$store.state.linkmans.push(that.$store.state.tempLinkman);
+            that.$store.state.linkmans.push(that.$store.state.tempLinkman)
           }
           //切换到主页面
           that.$router.push("main");
