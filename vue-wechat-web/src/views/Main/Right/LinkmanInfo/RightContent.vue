@@ -25,6 +25,8 @@
 
 <script>
 import avatar from "@/assets/default.png";
+import Qs from 'qs'
+import axios from 'axios'
 
 export default {
   name: "RightContent",

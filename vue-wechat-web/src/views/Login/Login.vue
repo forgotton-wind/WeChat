@@ -73,6 +73,35 @@ export default {
       .then(function(res) {
         console.log(res);
         if (res.data.msg=="登录成功!") {
+          //登陆成功后更新myself信息
+          that.$store.state.myself.id = res.data.data.userPo.uid
+          that.$store.state.myself.account = res.data.data.userPo.userAccount
+          that.$store.state.myself.nickname = res.data.data.userPo.nickName
+          that.$store.state.myself.name = res.data.data.userPo.name
+          that.$store.state.myself.sex = res.data.data.userPo.sex
+          that.$store.state.myself.birthday = res.data.data.userPo.birthday
+          that.$store.state.myself.email = res.data.data.userPo.email
+          that.$store.state.myself.schoolname = res.data.data.userPo.schoolName
+          that.$store.state.myself.city = res.data.data.userPo.city
+          that.$store.state.myself.bloodtype = res.data.data.userPo.bloodType
+          that.$store.state.myself.avatar = res.data.data.userPo.gravatar
+          //登陆成功后更新linkman信息
+          for (let i=0; i<res.data.data.linkManList.length; ++i) {
+            let linkman = res.data.data.linkManList[i]
+            that.$store.state.tempLinkman.id = linkman.uid
+            that.$store.state.tempLinkman.account = linkman.userAccount
+            that.$store.state.tempLinkman.nickname = linkman.nickName
+            that.$store.state.tempLinkman.name = linkman.name
+            that.$store.state.tempLinkman.sex = linkman.sex
+            that.$store.state.tempLinkman.birthday = linkman.birthday
+            that.$store.state.tempLinkman.email = linkman.email
+            that.$store.state.tempLinkman.schoolname = linkman.schoolName
+            that.$store.state.tempLinkman.city = linkman.city
+            that.$store.state.tempLinkman.bloodtype = linkman.bloodType
+            that.$store.state.tempLinkman.avatar = linkman.gravatar
+            that.$store.state.linkmans.push(that.$store.state.tempLinkman);
+          }
+          //切换到主页面
           that.$router.push("main");
         } else {
           alert(res.data.msg);

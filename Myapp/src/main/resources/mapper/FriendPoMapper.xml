@@ -29,4 +29,9 @@
         select * from t_user
         where u_account = #{account,jdbcType=VARCHAR}
     </select>
+
+    <select id="friendInfo" parameterType="java.lang.Integer" resultMap="myapp.mapper.UserPoMapper.BaseResultMap">
+        select u.* from t_user u left join t_friend f on (u.u_id=f.f_fid)
+        where f.f_uid = #{id,jdbcType=INTEGER}
+    </select>
 </mapper>

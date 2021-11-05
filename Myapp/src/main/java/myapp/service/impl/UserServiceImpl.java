@@ -1,5 +1,6 @@
 package myapp.service.impl;
 
+import myapp.mapper.FriendPoMapper;
 import myapp.mapper.UserPoMapper;
 import myapp.model.LoginData;
 import myapp.model.UserPo;
@@ -8,11 +9,14 @@ import myapp.util.MD5Util;
 import myapp.util.RespResult;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
     @Resource
     UserPoMapper userPoMapper;
+    @Resource
+    FriendPoMapper friendPoMapper;
 
     @Override
     public RespResult userLogin(String userAccount, String userPassword) {
@@ -28,11 +32,14 @@ public class UserServiceImpl implements UserService {
         }
 
         if(MD5Util.verifyMd5(userPassword,userPo.getPassword())) {
+//            登录后，将state = 1 代表在线
+            userPo.setState(1);
+            userPoMapper.updateState(1);
             LoginData loginData = new LoginData();
-            loginData.setUid(userPo.getUid());
-            loginData.setUserAccount(userPo.getUserAccount());
-
-            return RespResult.success("登录成功!",loginData);
+            loginData.setUserPo(userPo);
+            List<UserPo> userPoList = friendPoMapper.friendInfo(userPo.getUid());
+            loginData.setLinkManList(userPoList);
+            return RespResult.success("登录成功!", loginData);
         } else {
             return RespResult.fail("密码错误!");
         }

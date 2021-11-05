@@ -27,10 +27,10 @@ const store = new Vuex.Store({
     isfriend: false,
     myself: {
       id: 1,
-      type: "A",
-      account: "mlj",
-      password: "123",
-      nickname: "用户一",
+      account: "",
+      //TODO 考虑还要不要password  可能不需要  没办法逆着解码
+      password: "",
+      nickname: "",
       name: "",
       sex: "",
       birthday: "",
@@ -38,7 +38,7 @@ const store = new Vuex.Store({
       schooolname: "",
       city: "",
       bloodtype: "",
-      avatar : user
+      avatar: ""
     },
     chats: [
       {
@@ -51,7 +51,7 @@ const store = new Vuex.Store({
             avatar,
             ctn: "你好",
             nickname: "用户一",
-            sender: "p1",
+            sender: 1,
             time: new Date("2011-01-11 11:11:11"),
             type: "chat"
           }
@@ -59,11 +59,11 @@ const store = new Vuex.Store({
       }
     ],
     tempLinkman: {
-      id: 2,
-      type: "A",
-      account: "mlj",
-      password: "123",
-      nickname: "用户一",
+      id: 1,
+      type: "",
+      account: "",
+      password: "",
+      nickname: "",
       name: "",
       sex: "",
       birthday: "",
@@ -71,7 +71,7 @@ const store = new Vuex.Store({
       schooolname: "",
       city: "",
       bloodtype: "",
-      avatar
+      avatar: ""
     },
     linkmans: [
       {
@@ -83,36 +83,6 @@ const store = new Vuex.Store({
         region: "这是地区",
         avatar: group
       },
-      {
-        id: 2,
-        type: "A",
-        account: "mlj",
-        password: "123",
-        nickname: "用户一",
-        name: "",
-        sex: "",
-        birthday: "",
-        email: "",
-        schooolname: "",
-        city: "",
-        bloodtype: "",
-        avatar
-      },
-      {
-        id: 3,
-        type: "B",
-        account: "mlj1",
-        password: "123",
-        nickname: "用户二",
-        name: "",
-        sex: "",
-        birthday: "",
-        email: "",
-        schooolname: "",
-        city: "",
-        bloodtype: "",
-        avatar
-      }
     ],
     currentChatId: -1
   },

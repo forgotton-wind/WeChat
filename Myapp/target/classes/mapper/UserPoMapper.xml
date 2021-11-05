@@ -16,7 +16,7 @@
         <result column="u_city" jdbcType="VARCHAR" property="city" />
         <result column="u_bloodtype" jdbcType="VARCHAR" property="bloodType" />
     </resultMap>
-
+    
     <!--根据用户名查询-->
     <select id="selectUserByLoginName" resultMap="BaseResultMap" parameterType="java.lang.String" >
         select *
@@ -92,4 +92,11 @@
         select u_id from t_user
         where u_account = #{account,jdbcType=VARCHAR}
     </select>
+
+    <update id="updateState" parameterType="java.lang.Integer" >
+        update t_user
+        <set>
+            u_state = #{state,jdbcType=INTEGER}
+        </set>
+    </update>
 </mapper>
