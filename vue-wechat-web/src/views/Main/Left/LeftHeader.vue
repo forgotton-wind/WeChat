@@ -10,7 +10,8 @@
       <img
         class="avatar-img"
         :src="avatar"
-        @click.stop="handleShowMyInfo($event)"
+        @click="handleShowMyInfo($event)"
+        @dblclick="handleModifyMyInfo()"
       />
     </div>
     <div class="nickName">{{ nickname }}</div>
@@ -54,6 +55,9 @@ export default {
       this.infoPosition.top = y;
       this.infoPosition.left = x;
       this.$store.commit("setMyInfo", true);
+    },
+    handleModifyMyInfo() {
+      this.$store.commit("setCurrentRight",2);
     }
   }
 };

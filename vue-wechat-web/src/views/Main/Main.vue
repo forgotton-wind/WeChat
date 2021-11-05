@@ -22,6 +22,7 @@ import LeftChatList from "./Left/LeftChatList/LeftChatList";
 
 import Chat from "./Right/Chat/Chat";
 import LinkmanInfo from "./Right/LinkmanInfo/LinkmanInfo";
+import Profile from "./Right/Profile/RightProfile";
 
 export default {
   name: "Main",
@@ -30,11 +31,12 @@ export default {
     LeftSearch,
     LeftChatList,
     Chat,
-    LinkmanInfo
+    LinkmanInfo,
+    Profile,
   },
   data() {
     return {
-      tabs: [Chat, LinkmanInfo]
+      tabs: [Chat, LinkmanInfo, Profile]
     };
   },
   computed: {
