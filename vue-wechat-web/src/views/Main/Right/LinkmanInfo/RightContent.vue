@@ -40,7 +40,7 @@ export default {
       return this.$store.state.linkOrTemp;
     },
     isgroup() {
-      return thid.$store.state.isgroup;
+      return this.$store.state.isgroup;
     },
     isingroup() {
       return this.$store.state.isingroup;
