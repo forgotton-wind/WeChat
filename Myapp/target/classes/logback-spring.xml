@@ -21,7 +21,7 @@
         <rollingPolicy
                 class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--日志文件输出的文件名 -->
-            <FileNamePattern>${LOG_HOME}/greadloop-flow.log.%d{yyyy-MM-dd,${customTimeZone}}.log.%i</FileNamePattern>
+            <FileNamePattern>${LOG_HOME}/WeChat-flow.log.%d{yyyy-MM-dd,${customTimeZone}}.log.%i</FileNamePattern>
             <!--日志文件保留天数 -->
             <MaxHistory>10</MaxHistory>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
@@ -41,7 +41,7 @@
         <rollingPolicy
                 class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--日志文件输出的文件名 -->
-            <FileNamePattern>${LOG_HOME}/greadloop-access.log.%d{yyyy-MM-dd,${customTimeZone}}.log.%i</FileNamePattern>
+            <FileNamePattern>${LOG_HOME}/WeChat-access.log.%d{yyyy-MM-dd,${customTimeZone}}.log.%i</FileNamePattern>
             <!--日志文件保留天数 -->
             <MaxHistory>10</MaxHistory>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
