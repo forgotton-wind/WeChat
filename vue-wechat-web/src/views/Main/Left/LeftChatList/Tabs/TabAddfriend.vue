@@ -8,111 +8,127 @@
       >
         <div class="add-friend-title">添加好友</div>
         <div class="add-friend-input">
-          <input v-model="friendname" class="add-friend-friendname" type="text" placeholder="账号" />
-          <button class="add-friend-btn" v-on:click="handleAddfriend">
+          <input v-model="friendAccount" class="add-friend-friendAccount" type="text" placeholder="账号" />
+          <button class="add-friend-btn" v-on:click="handlefindfriend">
             查 找 账 号
           </button>
         </div>
       </div>
     </div>
     
-  <div class="add-group-wrap">  
-    <div
-      class="add-group-main"
-      v-for="(article, index) in articles"
-      :key="'article' + index"
-    >
-      <div class="add-group-title">添加群组</div>
-      <div class="add-group-input">
-        <input v-model="groupname" class="add-group-groupname" type="text" placeholder="群号" />
-        <button class="add-group-btn" v-on:click="handleAddgroup">
-          添 加 群 组
-        </button>
+    <div class="add-group-wrap">  
+      <div
+        class="add-group-main"
+        v-for="(article, index) in articles"
+        :key="'article' + index"
+      >
+        <div class="add-group-title">添加群组</div>
+        <div class="add-group-input">
+          <input v-model="groupAccount" class="add-group-groupAccount" type="text" placeholder="群号" />
+          <button class="add-group-btn" v-on:click="handlefindgroup">
+            添 加 群 组
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-
-    <!-- <div
-      class="article"
-      v-for="(article, index) in articles"
-      :key="'article' + index"
-    >
-      <div class="info-wrap">
-        <div class="avatar-wrap">
-          <img :src="article.avatar" class="avatar" />
-        </div>
-        <div class="username">{{ article.username }}</div>
-        <div class="time">{{ article.time }}</div>
-      </div>
-      <div
-        class="detail-wrap"
-        :class="{ 'detail-wrap-selected': currentArticle === index }"
-        @click="currentArticle = index"
-      >
-        <div class="title">{{ article.title }}</div>
-        <div class="img-wrap">
-          <img :src="article.img" class="img" />
-        </div>
-      </div> 
-    </div> -->
   </div>
 </template>
 
 <script>
 // import avatar from "@/assets/default.png";
 // import img from "@/assets/background.png";
+import axios from 'axios'
+import Qs from 'qs'
+import pinyin from 'js-pinyin'
 
 export default {
   name: "TabChat",
   data() {
     return {
       articles: [],
-      friendname: '',
-      groupname: '',
+      friendAccount: '',
+      groupAccount: '',
       // currentArticle: -1
     };
   },
   mounted() {
-    // for (let i = 0; i < 20; i++) {
-    //   this.articles.push({
-    //     avatar,
-    //     username: "昵称",
-    //     time: "20:13",
-    //     title: "这是文章标题",
-    //     img
-    //   });
-    // }
     this.articles.push("");
   },
   methods: {
     //根据账号，添加好友
-    handleAddfriend() {
-        var that = this;
-        var mydata={
-          u_friendname:that.friendname,
-        }
+    handlefindfriend() {
+      var that = this;
+      var mydata={
+        u_id: that.$store.state.myself.id,
+        u_friendAccount:that.friendAccount,
+      }
 
-        that.axios({
-          method: "post",
-          url: 'http://127.0.0.1:8077/WeChat/user/register?user_account='+mydata.u_account+'&user_password='+mydata.u_password+'&confirm_password='+mydata.u_password2,
-          data:Qs.stringify(mydata)
-        })
-        .then(function(res) {
-          if (res.data.msg=="添加好友成功!") {
-            alert(res.data.msg);
-          } else {
-            alert(res.data.msg);
+      that.axios({
+        method: "post",
+        url: 'http://127.0.0.1:8077/WeChat/friend/find?account='+mydata.u_friendAccount,
+        data:Qs.stringify(mydata)
+      })
+      .then(function(res) {
+        console.log(res);
+        if (res.data.msg=="查找成功") {
+          let f_id = res.data.data.uid
+          let name = res.data.data.nickName
+          let char = ''
+          pinyin.setOptions({checkPolyphone:false,charCase:0});
+          char = pinyin.getCamelChars(name)
+          let kindIndex = char[0];
+          that.$store.commit("getIndex", kindIndex);
+          let lIndex = that.$store.state.lIndex;
+          console.log(kindIndex);
+          console.log(lIndex);
+
+          console.log(f_id);
+          const linkmans = that.$store.state.linkmans;
+          console.log(linkmans.length);
+          for (let i = 0; i < linkmans.length; i++) {
+            if (f_id === linkmans[i].id && linkmans[i].type != "group") {
+              that.$store.commit("setCurrentRight", 1);
+              that.$store.commit("setCurrentLinkman", i);
+              break;
+            }
           }
-        })
-        .catch(function(err) {
-          console.log(err);
-        });
+        } else {
+          alert(res.data.msg);
+        }
+      })
+      .catch(function(err) {
+        console.log(err);
+      });
+
+        // var that = this;
+        // var mydata={
+        //   u_id: that.$store.state.myself.id,
+        //   u_friendAccount:that.friendAccount,
+        // }
+
+        // that.axios({
+        //   method: "post",
+        //   url: 'http://127.0.0.1:8077/WeChat/friend/add?f_uid='+mydata.u_id+'&f_account='+mydata.u_friendAccount,
+        //   data:Qs.stringify(mydata)
+        // })
+        // .then(function(res) {
+        //   console.log(res);
+        //   if (res.data.msg=="添加好友成功") {
+        //     alert(res.data.msg);
+        //   } else {
+
+        //     alert(res.data.msg);
+        //   }
+        // })
+        // .catch(function(err) {
+        //   console.log(err);
+        // });
     },
     //根据群号，添加好友群组
-    handleAddgroup() {
+    handlefindgroup() {
         var that = this;
         var mydata={
-          u_groupname:that.groupname,
+          u_groupAccount:that.groupAccount,
         }
 
         that.axios({
@@ -124,6 +140,7 @@ export default {
           if (res.data.msg=="添加群组成功!") {
             alert(res.data.msg);
           } else {
+
             alert(res.data.msg);
           }
         })
@@ -165,7 +182,7 @@ textarea::-webkit-input-placeholder {
   color: #d4d4d4;
 }
 
-.add-friend-friendname {
+.add-friend-friendAccount {
   margin-top: 5px;
   padding: 10px 10px;
   line-height: 10px;
@@ -175,12 +192,13 @@ textarea::-webkit-input-placeholder {
   outline: none;
   transition: 0.4s;
   background-color: #272c24;
-;
+  color: rgb(253, 255, 247);
 }
 
-.add-friend-friendname:focus {
+.add-friend-friendAccount:focus {
   border-color: #272c24;
   transition: 0.4s;
+  color: rgb(253, 255, 247);
 }
 
 .add-friend-btn {
@@ -218,7 +236,7 @@ textarea::-webkit-input-placeholder {
   color: #d4d4d4;
 }
 
-.add-group-groupname {
+.add-group-groupAccount {
   margin-top: 5px;
   padding: 10px 10px;
   line-height: 10px;
@@ -228,12 +246,13 @@ textarea::-webkit-input-placeholder {
   outline: none;
   transition: 0.4s;
   background-color: #272c24;
-;
+  color: rgb(253, 255, 247);
 }
 
-.add-group-groupname:focus {
+.add-group-groupAccount:focus {
   border-color: #272c24;
   transition: 0.4s;
+  color: rgb(253, 255, 247);
 }
 
 .add-group-btn {

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="myapp.mapper.FriendPoMapper">
+    <resultMap id="BaseResultMap" type="myapp.model.FriendPo">
+        <result column="f_id" jdbcType="INTEGER" property="id" />
+        <result column="f_name" jdbcType="VARCHAR" property="name" />
+        <result column="f_uid" jdbcType="INTEGER" property="uId" />
+        <result column="f_fid" jdbcType="INTEGER" property="fId" />
+    </resultMap>
+
+    <insert id="addFriend" parameterType="myapp.model.FriendPo">
+        insert into t_friend
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            f_uid, f_fid,
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            #{uId,jdbcType=INTEGER}, #{fId,jdbcType=INTEGER},
+        </trim>
+    </insert>
+
+    <select id="inquireFriend" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select *
+        from t_friend
+        where f_uid = #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="findFriend" parameterType="java.lang.String" resultMap="myapp.mapper.UserPoMapper.BaseResultMap">
+        select * from t_user
+        where u_account = #{account,jdbcType=VARCHAR}
+    </select>
+</mapper>

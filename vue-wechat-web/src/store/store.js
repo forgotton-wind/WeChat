@@ -20,8 +20,9 @@ const store = new Vuex.Store({
     currentTabIndex: 0,
     currentRight: 0,
     currentLinkman: 0,
+    lIndex: 0,
     myself: {
-      id: "p0",
+      id: "1",
       avatar: user,
       nickname: "你自己",
       gender: "",
@@ -48,7 +49,7 @@ const store = new Vuex.Store({
     ],
     linkmans: [
       {
-        id: "g1",
+        id: 2,
         type: "group",
         members: ["p1", "p2"],
         nickname: "这是群组",
@@ -58,7 +59,7 @@ const store = new Vuex.Store({
         avatar: group
       },
       {
-        id: "p1",
+        id: 2,
         type: "A",
         nickname: "用户一",
         gender: "",
@@ -67,7 +68,7 @@ const store = new Vuex.Store({
         avatar
       },
       {
-        id: "p2",
+        id: 3,
         type: "B",
         nickname: "用户二",
         gender: "",
@@ -148,6 +149,14 @@ const store = new Vuex.Store({
           break;
         }
       }
+    },
+    getIndex(state, kind) {
+        state.lIndex = 0;
+        for (let i=0; i<state.linkmans.length; ++i) {
+          if (state.linkmans[i].type === kind) {
+            state.lIndex++;
+          }
+        }
     },
     addChat(state, linkmanIndex) {
       state.currentTabIndex = 0;

@@ -4,7 +4,9 @@
     <h4 class="nickname">
       {{ linkman.alias ? linkman.alias : linkman.nickname }}
     </h4>
-    <button class="button" @click="sendMessage">发消息</button>
+    <button class="sendmessage" @click="sendMessage">发消息</button>
+    <button v-if="isfriend" class="delfriend" @click="delFriend">删除好友</button>
+    <button v-else class="addfriend" @click="addFriend">添加好友</button>
   </div>
 </template>
 
@@ -13,6 +15,11 @@ import avatar from "@/assets/default.png";
 
 export default {
   name: "RightContent",
+  data(){
+    return {
+      isfriend: false,
+    };
+  },
   computed: {
     linkman() {
       const currentLinkman = this.$store.state.currentLinkman;
@@ -22,7 +29,15 @@ export default {
   methods: {
     sendMessage() {
       this.$store.commit("addChat", this.$store.state.currentLinkman);
-    }
+    },
+
+    addFriend() {
+
+    },
+
+    delFriend() {
+      
+    },
   }
 };
 </script>
@@ -51,7 +66,7 @@ export default {
   margin: 0 0 40px;
 }
 
-.button {
+.sendmessage {
   width: 200px;
   height: 40px;
   border: none;
@@ -61,5 +76,32 @@ export default {
   color: #fff;
   font-size: 14px;
   cursor: pointer;
+  margin-top: 5px;
+}
+
+.addfriend {
+  width: 200px;
+  height: 40px;
+  border: none;
+  outline: none;
+  background-color: #42ac3e;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+.delfriend {
+  width: 200px;
+  height: 40px;
+  border: none;
+  outline: none;
+  background-color: #42ac3e;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 5px;
 }
 </style>

@@ -62,12 +62,13 @@ export default {
       const linkmans = this.$store.state.linkmans;
       this.$store.commit("setCurrentRight", 1);
       for (let i = 0; i < linkmans.length; i++) {
-        if (id === linkmans[i].id) {
+        if (id === linkmans[i].id && linkmans[i].type === this.kinds[kindIndex].linkmans[lIndex].type) {
           this.$store.commit("setCurrentLinkman", i);
           break;
         }
       }
     },
+
     handleNewChat(kindIndex, lIndex) {
       for (let i = 0; i < this.$store.state.linkmans.length; i++) {
         const linkman = this.$store.state.linkmans[i];

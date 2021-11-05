@@ -19,3 +19,5 @@
 - 图片发送
 - 语音发送
 - 视频聊天
+
+application-dev.properties文件需自己配置
