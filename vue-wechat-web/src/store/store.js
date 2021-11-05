@@ -22,6 +22,9 @@ const store = new Vuex.Store({
     currentLinkman: 0,
     lIndex: 0,
     linkOrTemp: 1,
+    isgroup: false,
+    isingroup: false,
+    isfriend: false,
     myself: {
       id: "1",
       avatar: user,
@@ -160,12 +163,15 @@ const store = new Vuex.Store({
       }
     },
     getIndex(state, kind) {
-        state.lIndex = 0;
-        for (let i=0; i<state.linkmans.length; ++i) {
-          if (state.linkmans[i].type === kind) {
-            state.lIndex++;
-          }
+      state.lIndex = 0;
+      for (let i=0; i<state.linkmans.length; ++i) {
+        if (state.linkmans[i].type === kind) {
+          state.lIndex++;
         }
+      }
+    },
+    addLinkman(state) {
+      state.linkmans.push(tempLinkman);
     },
     addChat(state, linkmanIndex) {
       state.currentTabIndex = 0;

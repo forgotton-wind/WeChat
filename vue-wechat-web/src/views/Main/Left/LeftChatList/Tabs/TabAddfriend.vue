@@ -55,7 +55,7 @@ export default {
     this.articles.push("");
   },
   methods: {
-    //根据账号，添加好友
+    //根据账号，查找好友
     handlefindfriend() {
       var that = this;
       var mydata={
@@ -76,27 +76,6 @@ export default {
           that.$store.state.tempLinkman.nickname = res.data.data.nickName;
           //TODO 以上未完待续
           that.$store.commit("setCurrentRight", 1);
-          // let f_id = res.data.data.uid
-          // let name = res.data.data.nickName
-          // let char = ''
-          // pinyin.setOptions({checkPolyphone:false,charCase:0});
-          // char = pinyin.getCamelChars(name)
-          // let kindIndex = char[0];
-          // that.$store.commit("getIndex", kindIndex);
-          // let lIndex = that.$store.state.lIndex;
-          // console.log(kindIndex);
-          // console.log(lIndex);
-
-          // console.log(f_id);
-          // const linkmans = that.$store.state.linkmans;
-          // console.log(linkmans.length);
-          // for (let i = 0; i < linkmans.length; i++) {
-          //   if (f_id === linkmans[i].id && linkmans[i].type != "group") {
-          //     that.$store.commit("setCurrentRight", 1);
-          //     that.$store.commit("setCurrentLinkman", i);
-          //     break;
-          //   }
-          // }
         } else {
           alert(res.data.msg);
         }
@@ -104,30 +83,6 @@ export default {
       .catch(function(err) {
         console.log(err);
       });
-
-        // var that = this;
-        // var mydata={
-        //   u_id: that.$store.state.myself.id,
-        //   u_friendAccount:that.friendAccount,
-        // }
-
-        // that.axios({
-        //   method: "post",
-        //   url: 'http://127.0.0.1:8077/WeChat/friend/add?f_uid='+mydata.u_id+'&f_account='+mydata.u_friendAccount,
-        //   data:Qs.stringify(mydata)
-        // })
-        // .then(function(res) {
-        //   console.log(res);
-        //   if (res.data.msg=="添加好友成功") {
-        //     alert(res.data.msg);
-        //   } else {
-
-        //     alert(res.data.msg);
-        //   }
-        // })
-        // .catch(function(err) {
-        //   console.log(err);
-        // });
     },
     //根据群号，添加好友群组
     handlefindgroup() {
