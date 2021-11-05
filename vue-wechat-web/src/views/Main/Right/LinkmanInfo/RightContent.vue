@@ -1,8 +1,12 @@
 <template>
   <div class="right-content-wrap">
-    <img class="avatar" :src="linkman.avatar" />
-    <h4 class="nickname">
+    <img v-if="linkOrTemp" class="avatar" :src="linkman.avatar" />
+    <img v-else class="avatar" :src="tempLinkman.avatar" />
+    <h4 v-if="linkOrTemp" class="nickname">
       {{ linkman.alias ? linkman.alias : linkman.nickname }}
+    </h4>
+    <h4 v-else class="nickname">
+      {{ tempLinkman.alias ? tempLinkman.alias : tempLinkman.nickname }}
     </h4>
 
     <div class="group-window-wrap" v-if="isgroup">
@@ -16,7 +20,6 @@
       <button v-if="isfriend" class="delfriend" @click="delFriend">删除好友</button>
       <button v-else class="addfriend" @click="addFriend">添加好友</button>
     </div>
-
   </div>
 </template>
 
@@ -36,6 +39,12 @@ export default {
     linkman() {
       const currentLinkman = this.$store.state.currentLinkman;
       return this.$store.state.linkmans[currentLinkman];
+    },
+    tempLinkman() {
+      return this.$store.state.tempLinkman;
+    },
+    linkOrTemp() {
+      return this.$store.state.linkOrTemp;
     }
   },
   methods: {
