@@ -4,9 +4,19 @@
     <h4 class="nickname">
       {{ linkman.alias ? linkman.alias : linkman.nickname }}
     </h4>
-    <button class="sendmessage" @click="sendMessage">发消息</button>
-    <button v-if="isfriend" class="delfriend" @click="delFriend">删除好友</button>
-    <button v-else class="addfriend" @click="addFriend">添加好友</button>
+
+    <div class="group-window-wrap" v-if="isgroup">
+      <button v-if="isingroup" class="sendmessage-group" @click="sendMessagegroup">发群消息</button>
+      <button v-if="isingroup" class="delgroup" @click="delGroup">删除群聊</button>
+      <button v-else class="addgroup" @click="addGroup">添加群聊</button>
+    </div>
+
+    <div class="friend-window-wrap" v-else>
+      <button v-if="isfriend" class="sendmessage-friend" @click="sendMessagefriend">发消息</button>
+      <button v-if="isfriend" class="delfriend" @click="delFriend">删除好友</button>
+      <button v-else class="addfriend" @click="addFriend">添加好友</button>
+    </div>
+
   </div>
 </template>
 
@@ -17,6 +27,8 @@ export default {
   name: "RightContent",
   data(){
     return {
+      isgroup: false,
+      isingroup: false,
       isfriend: false,
     };
   },
@@ -27,7 +39,19 @@ export default {
     }
   },
   methods: {
-    sendMessage() {
+    sendMessagegroup() {
+      this.$store.commit("addChat", this.$store.state.currentLinkman);
+    },
+
+    addGroup() {
+
+    },
+
+    delGroup() {
+      
+    },
+
+    sendMessagefriend() {
       this.$store.commit("addChat", this.$store.state.currentLinkman);
     },
 
@@ -66,7 +90,46 @@ export default {
   margin: 0 0 40px;
 }
 
-.sendmessage {
+.sendmessage-group {
+  width: 200px;
+  height: 40px;
+  border: none;
+  outline: none;
+  background-color: #42ac3e;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+.addgroup {
+  width: 200px;
+  height: 40px;
+  border: none;
+  outline: none;
+  background-color: #42ac3e;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+.delgroup {
+  width: 200px;
+  height: 40px;
+  border: none;
+  outline: none;
+  background-color: #42ac3e;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+.sendmessage-friend {
   width: 200px;
   height: 40px;
   border: none;
