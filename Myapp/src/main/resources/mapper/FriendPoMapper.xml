@@ -34,4 +34,16 @@
         select u.* from t_user u left join t_friend f on (u.u_id=f.f_fid)
         where f.f_uid = #{id,jdbcType=INTEGER}
     </select>
+
+    <select id="isFriend" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select * from t_friend
+        where f_uid = #{uId, jdbcType=INTEGER}
+        and f_fid = #{fId, jdbcType=INTEGER}
+    </select>
+
+    <delete id="delFriend" parameterType="java.lang.Integer">
+        delete from t_friend
+        where f_uid = #{uId, jdbcType=INTEGER}
+        and f_fid = #{fId, jdbcType=INTEGER}
+    </delete>
 </mapper>

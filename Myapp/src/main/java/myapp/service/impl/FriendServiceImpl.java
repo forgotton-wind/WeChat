@@ -46,9 +46,26 @@ public class FriendServiceImpl implements FriendService {
     }
 
     @Override
-    public  RespResult findFriend(String account) {
+    public RespResult findFriend(String account) {
         UserPo userPo = friendPoMapper.findFriend(account);
         if (null==userPo) return RespResult.fail("账号不存在");
         return RespResult.success("查找成功", userPo);
+    }
+
+    @Override
+    public RespResult delFriend(Integer uId, Integer fId) {
+        if (null == fId) {
+            return RespResult.fail("此账号不存在");
+        }
+        if (fId.equals(uId)) {
+            return RespResult.fail("不能删除自己");
+        }
+        FriendPo friendPo = friendPoMapper.isFriend(uId, fId);
+        if (null == friendPo) {
+            return RespResult.fail("不是好友，无法删除");
+        }
+
+        friendPoMapper.delFriend(uId, fId);
+        return RespResult.success("删除好友成功");
     }
 }

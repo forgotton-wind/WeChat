@@ -31,4 +31,10 @@ public class FriendController extends BaseController implements FriendApi{
         RespResult respResult = friendService.findFriend(account);
         return new ResponseEntity<RespResult>(respResult, HttpStatus.OK);
     }
+
+    @Override
+    public ResponseEntity<RespResult> delFriend(Integer uId, Integer fId) {
+        RespResult respResult = friendService.delFriend(uId, fId);
+        return new ResponseEntity<RespResult>(respResult, HttpStatus.OK);
+    }
 }

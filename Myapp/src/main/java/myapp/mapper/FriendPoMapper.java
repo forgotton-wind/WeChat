@@ -10,4 +10,6 @@ public interface FriendPoMapper {
     List<FriendPo> inquireFriend(Integer id);
     UserPo findFriend(String account);
     List<UserPo> friendInfo(Integer id);
+    FriendPo isFriend(Integer uId, Integer fId);
+    Integer delFriend(Integer uId, Integer fId);
 }
