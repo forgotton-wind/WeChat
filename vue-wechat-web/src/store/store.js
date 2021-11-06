@@ -166,7 +166,7 @@ const store = new Vuex.Store({
       }
     },
     addLinkman(state) {
-      state.linkmans.push(state.tempLinkman);
+      state.linkmans.push(JSON.parse(JSON.stringify(state.tempLinkman)));
     },
     delLinkman(state) {
       let index = state.linkmans.findIndex(item => item.id===state.tempLinkman.id);

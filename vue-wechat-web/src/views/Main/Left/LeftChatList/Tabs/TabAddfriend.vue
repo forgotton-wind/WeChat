@@ -84,7 +84,8 @@ export default {
           that.$store.state.tempLinkman.avatar = res.data.data.gravatar
           that.$store.state.isfriend = false
           for (let i=0; i<that.$store.state.linkmans.length; ++i) {
-            if (that.$store.state.linkmans[i].id === that.$store.state.tempLinkman.id) {
+            if (that.$store.state.linkmans[i].id === that.$store.state.tempLinkman.id &&
+            that.$store.state.linkmans[i].type != "group") {
               that.$store.state.isfriend = true
               break;
             }

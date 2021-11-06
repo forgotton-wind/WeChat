@@ -33,6 +33,7 @@ import pinyin from 'js-pinyin'
 
 export default {
   name: "RightContent",
+  inject:"[reload]",
   computed: {
     linkman() {
       const currentLinkman = this.$store.state.currentLinkman;
@@ -96,8 +97,8 @@ export default {
           char = pinyin.getCamelChars(nickname)
           let type = char[0];
           that.$store.state.tempLinkman.type = type;
-
           that.$store.commit("addLinkman");
+          that.$store.state.isfriend = true;
           alert(res.data.msg);
         } else {
           alert(res.data.msg);
@@ -124,6 +125,8 @@ export default {
         console.log(res);
         if (res.data.msg=="删除好友成功") {
           that.$store.commit("delLinkman");
+          that.$store.state.linkOrTemp = 0;
+          that.$store.state.isfriend = false;
           alert(res.data.msg);
         } else {
           alert(res.data.msg);
