@@ -166,7 +166,11 @@ const store = new Vuex.Store({
       }
     },
     addLinkman(state) {
-      state.linkmans.push(tempLinkman);
+      state.linkmans.push(state.tempLinkman);
+    },
+    delLinkman(state) {
+      let index = state.linkmans.findIndex(item => item.id===state.tempLinkman.id);
+      state.linkmans.splice(index, 1)
     },
     addChat(state, linkmanIndex) {
       state.currentTabIndex = 0;

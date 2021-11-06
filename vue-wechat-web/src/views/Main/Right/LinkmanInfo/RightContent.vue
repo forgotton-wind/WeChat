@@ -11,12 +11,14 @@
 
     <div class="group-window-wrap" v-if="isgroup">
       <button v-if="isingroup" class="sendmessage-group" @click="sendMessagegroup">发群消息</button>
-      <button v-if="isingroup" class="delgroup" @click="delGroup">删除群聊</button>
+      <br>
+      <button v-if="isingroup" class="delgroup" @click="delGroup">退出群聊</button>
       <button v-else class="addgroup" @click="addGroup">添加群聊</button>
     </div>
 
     <div class="friend-window-wrap" v-else>
       <button v-if="isfriend" class="sendmessage-friend" @click="sendMessagefriend">发消息</button>
+      <br>
       <button v-if="isfriend" class="delfriend" @click="delFriend">删除好友</button>
       <button v-else class="addfriend" @click="addFriend">添加好友</button>
     </div>
@@ -27,6 +29,7 @@
 import avatar from "@/assets/default.png";
 import Qs from 'qs'
 import axios from 'axios'
+import pinyin from 'js-pinyin'
 
 export default {
   name: "RightContent",
@@ -106,7 +109,29 @@ export default {
     },
 
     delFriend() {
-      
+      var that = this;
+      var mydata={
+        u_id: that.$store.state.myself.id,
+        f_id: that.$store.state.tempLinkman.id,
+      }
+
+      that.axios({
+        method: "post",
+        url: 'http://127.0.0.1:8077/WeChat/friend/del?f_uid='+mydata.u_id+'&f_id='+mydata.f_id,
+        data:Qs.stringify(mydata)
+      })
+      .then(function(res) {
+        console.log(res);
+        if (res.data.msg=="删除好友成功") {
+          that.$store.commit("delLinkman");
+          alert(res.data.msg);
+        } else {
+          alert(res.data.msg);
+        }
+      })
+      .catch(function(err) {
+        console.log(err);
+      });
     },
   }
 };
