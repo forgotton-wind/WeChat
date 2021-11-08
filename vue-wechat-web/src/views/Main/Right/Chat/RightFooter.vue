@@ -70,6 +70,8 @@ import emoji from "@/assets/emoji.png";
 import emojiSmall from "@/assets/emoji-small.png";
 import avatar from "@/assets/default.png";
 import spacer from "@/assets/spacer.gif";
+import axios from 'axios'
+import Qs from 'qs'
 
 function handleMessage(ctnInput) {
   let ctn = [];
@@ -234,14 +236,45 @@ export default {
       });
 
       const myself = this.$store.state.myself;
+      var time = new Date()
       this.$store.commit("sendMessage", {
-        type: "chat",
-        time: new Date(),
+        type: 1,
+        time: time,
         sender: myself.id,
         nickname: myself.nickname,
         avatar: myself.avatar,
         ctn
       });
+
+      // var that = this
+      // for (let chat of that.$store.state.chats) {
+      //   if (chat.chatId === that.$store.state.currentChatId) {
+      //     var mydata = {
+      //       m_from_id: that.$store.state.myself.id,
+      //       m_to_id: chat.linkmanId,
+      //       content: ctn,
+      //       time: time,
+      //       message_type: 1
+      //     }
+
+      //     //在这里进行跨域请求
+      //     that.axios({
+      //       method: "post",
+      //       url: 'http://127.0.0.1:8077/WeChat/message/transmit?m_from_id='+mydata.m_from_id+'&m_to_id='+mydata.m_to_id
+      //       +'&content='+mydata.content+'&time='+mydata.time+'&message_type='+mydata.message_type,
+      //       data:Qs.stringify(mydata)
+      //     })
+      //     .then(function(res) {
+      //       console.log(res);
+      //       if (res.data.msg=="发送成功!") {
+              
+      //       } else {
+      //         alert(res.data.msg);
+      //       }
+      //     })
+      //     break;
+      //   }
+      // }
 
       this.$nextTick(() => {
         const content = document.querySelector("#content");

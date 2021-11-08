@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
+
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-09-02T00:36:41.717+08:00")
 
 @RestController
@@ -15,8 +17,8 @@ public class MessageController extends BaseController implements MessageApi {
     private MessageService messageService;
 
     @Override
-    public ResponseEntity<RespResult> messageTransmit(Integer mFromId, Integer mToId, String content, Integer type) {
-        RespResult respResult = messageService.messageTransmit(mFromId, mToId, content, type);
+    public ResponseEntity<RespResult> messageTransmit(Integer mFromId, Integer mToId, String content, Integer type, Date time) {
+        RespResult respResult = messageService.messageTransmit(mFromId, mToId, content, type, time);
         return new ResponseEntity<RespResult>(respResult, HttpStatus.OK);
     }
 

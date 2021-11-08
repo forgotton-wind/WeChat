@@ -16,7 +16,7 @@
           <img class="avatar" :src="linkman.avatar" />
         </div>
         <div class="nickname">
-          {{ linkman.account ? linkman.account : linkman.nickname }}
+          {{ linkman.nickname ? linkman.nickname : linkman.account }}
         </div>
       </div>
     </div>

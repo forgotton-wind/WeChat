@@ -6,6 +6,8 @@ import myapp.util.RespResult;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
+
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen",date = "2021-06-16T10:25:42")
 @Api(value = "Message", description = "the Message API")
 public interface MessageApi {
@@ -14,9 +16,10 @@ public interface MessageApi {
             produces = { "application/json" },
             method = RequestMethod.POST)
     ResponseEntity<RespResult> messageTransmit(@NotNull @ApiParam(value = "发送者id", required = true) @RequestParam(value = "m_from_id") Integer mFromId,
-                                         @NotNull @ApiParam(value = "接受者id", required = true) @RequestParam(value = "m_to_id") Integer mToId,
-                                         @NotNull @ApiParam(value = "消息内容", required = true) @RequestParam(value = "content") String content,
-                                         @NotNull @ApiParam(value = "消息类型", required = true) @RequestParam(value = "message_type") Integer type
+                                               @NotNull @ApiParam(value = "接受者id", required = true) @RequestParam(value = "m_to_id") Integer mToId,
+                                               @NotNull @ApiParam(value = "消息内容", required = true) @RequestParam(value = "content") String content,
+                                               @NotNull @ApiParam(value = "消息类型", required = true) @RequestParam(value = "message_type") Integer type,
+                                               @NotNull @ApiParam(value = "时间", required = true) @RequestParam(value = "time") Date time
     );
 
     @ApiOperation(value = "消息轮询", notes = "Friends message Inquire", response = RespResult.class, tags={ "Message", })

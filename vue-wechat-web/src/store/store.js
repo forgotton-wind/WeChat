@@ -53,7 +53,7 @@ const store = new Vuex.Store({
             nickname: "小明",
             sender: 1,
             time: new Date("2011-01-11 11:11:11"),
-            type: "chat"
+            type: 1
           }
         ]
       }

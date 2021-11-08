@@ -3,10 +3,10 @@
     <img v-if="linkOrTemp" class="avatar" :src="linkman.avatar" />
     <img v-else class="avatar" :src="tempLinkman.avatar" />
     <h4 v-if="linkOrTemp" class="nickname">
-      {{ linkman.account ? linkman.account : linkman.nickname }}
+      {{ tempLinkman.nickname ? tempLinkman.nickname : tempLinkman.account }}
     </h4>
     <h4 v-else class="nickname">
-      {{ tempLinkman.account ? tempLinkman.account : tempLinkman.nickname }}
+      {{ tempLinkman.nickname ? tempLinkman.nickname : tempLinkman.account }}
     </h4>
 
     <div class="group-window-wrap" v-if="isgroup">
