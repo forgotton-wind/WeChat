@@ -14,7 +14,7 @@
       <div v-else>
         <div v-for="(msg, index) in messages" :key="'msg' + index">
           <p v-if="msg.type === 'notice'" class="msg-notice">{{ msg.ctn }}</p>
-          <div v-if="msg.type === 'chat'" class="msg-chat">
+          <div v-if="msg.type === 1" class="msg-chat">
             <p class="msg-notice msg-time" v-if="isShowTime(index)">
               {{ time(msg.time) }}
             </p>

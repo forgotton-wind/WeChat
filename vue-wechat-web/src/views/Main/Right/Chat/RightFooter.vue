@@ -96,6 +96,22 @@ function handleMessage(ctnInput) {
   return ctn.join("");
 }
 
+//时间格式化函数，此处仅针对yyyy-MM-dd hh:mm:ss 的格式进行格式化
+function dateFormat(time) {
+    var date=new Date(time);
+    var year=date.getFullYear();
+    /* 在日期格式中，月份是从0开始的，因此要加0
+     * 使用三元表达式在小于10的前面加0，以达到格式统一  如 09:11:05
+     * */
+    var month= date.getMonth()+1<10 ? "0"+(date.getMonth()+1) : date.getMonth()+1;
+    var day=date.getDate()<10 ? "0"+date.getDate() : date.getDate();
+    var hours=date.getHours()<10 ? "0"+date.getHours() : date.getHours();
+    var minutes=date.getMinutes()<10 ? "0"+date.getMinutes() : date.getMinutes();
+    var seconds=date.getSeconds()<10 ? "0"+date.getSeconds() : date.getSeconds();
+    // 拼接
+    return year+"-"+month+"-"+day+" "+hours+":"+minutes+":"+seconds;
+}
+
 export default {
   name: "RightFooter",
   data() {
@@ -246,35 +262,37 @@ export default {
         ctn
       });
 
-      // var that = this
-      // for (let chat of that.$store.state.chats) {
-      //   if (chat.chatId === that.$store.state.currentChatId) {
-      //     var mydata = {
-      //       m_from_id: that.$store.state.myself.id,
-      //       m_to_id: chat.linkmanId,
-      //       content: ctn,
-      //       time: time,
-      //       message_type: 1
-      //     }
+      let tt = dateFormat(time)
+      console.log(tt)
+      var that = this
+      for (let chat of that.$store.state.chats) {
+        if (chat.chatId === that.$store.state.currentChatId) {
+          var mydata = {
+            m_from_id: that.$store.state.myself.id,
+            m_to_id: chat.linkmanId,
+            content: ctn,
+            time: tt,
+            message_type: 1
+          }
 
-      //     //在这里进行跨域请求
-      //     that.axios({
-      //       method: "post",
-      //       url: 'http://127.0.0.1:8077/WeChat/message/transmit?m_from_id='+mydata.m_from_id+'&m_to_id='+mydata.m_to_id
-      //       +'&content='+mydata.content+'&time='+mydata.time+'&message_type='+mydata.message_type,
-      //       data:Qs.stringify(mydata)
-      //     })
-      //     .then(function(res) {
-      //       console.log(res);
-      //       if (res.data.msg=="发送成功!") {
+          console.log(mydata.content);
+          //在这里进行跨域请求
+          that.axios({
+            method: "post",
+            url: 'http://127.0.0.1:8077/WeChat/message/transmit',
+            data:Qs.stringify(mydata)
+          })
+          .then(function(res) {
+            console.log(res);
+            if (res.data.msg=="发送成功!") {
               
-      //       } else {
-      //         alert(res.data.msg);
-      //       }
-      //     })
-      //     break;
-      //   }
-      // }
+            } else {
+              alert(res.data.msg);
+            }
+          })
+          break;
+        }
+      }
 
       this.$nextTick(() => {
         const content = document.querySelector("#content");

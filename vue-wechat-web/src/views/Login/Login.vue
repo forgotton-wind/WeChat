@@ -62,13 +62,13 @@ export default {
     handleLogin() {
       var that = this;
       var mydata={
-        u_account:that.account,
-        u_password:that.password
+        user_account:that.account,
+        user_password:that.password
       }
       //在这里进行跨域请求
       that.axios({
         method: "post",
-        url: 'http://127.0.0.1:8077/WeChat/user/login?user_account='+mydata.u_account+'&user_password='+mydata.u_password,
+        url: 'http://127.0.0.1:8077/WeChat/user/login',
         data:Qs.stringify(mydata)
       })
       .then(function(res) {

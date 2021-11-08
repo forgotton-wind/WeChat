@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
+import myapp.util.DateUtils;
 
 @Service
 public class MessageServiceImpl implements MessageService {
@@ -15,14 +16,15 @@ public class MessageServiceImpl implements MessageService {
     MessagePoMapper messagePoMapper;
 
     @Override
-    public RespResult messageTransmit(Integer mFromId, Integer mToId, String content, Integer type, Date time) {
+    public RespResult messageTransmit(Integer mFromId, Integer mToId, String content, Integer type, String time) {
         MessagePo messagePo = new MessagePo();
         messagePo.setFromId(mFromId);
         messagePo.setToId(mToId);
         messagePo.setContent(content);
         messagePo.setTypeId(type);
         messagePo.setStatus(0);
-        messagePo.setTime(time);
+        Date date = DateUtils.parseDate(time);
+        messagePo.setTime(date);
 
         messagePoMapper.insertMessage(messagePo);
 

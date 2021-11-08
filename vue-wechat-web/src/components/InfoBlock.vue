@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import avatar from "@/assets/default.png";
+import avatar from "../assets/default.png";
 
 export default {
   name: "MemberInfo",
