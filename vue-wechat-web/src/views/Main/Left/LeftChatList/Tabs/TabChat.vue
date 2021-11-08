@@ -68,11 +68,20 @@ export default {
       const linkmans = this.$store.state.linkmans;
       return this.$store.state.chats
         .map(chat => {
-          return {
-            ...chat,
-            ...linkmans[chat.linkmanIndex],
-            message: null
-          };
+          for (let i=0; i<linkmans.length; ++i) {
+            if (linkmans[i].id === chat.linkmanId) {
+              if (linkmans[i].type === "group" && chat.isGroup === false) continue
+              if (linkmans[i].type !== "group" && chat.isGroup === true) continue
+              console.log(linkmans[i])
+              console.log(linkmans[i].type)
+              console.log(chat.isGroup)
+              return {
+                ...chat,
+                ...linkmans[i],
+                message: null
+              };
+            }
+          }
         })
         .sort((a, b) => {
           return a.isOnTop ? -1 : 0;

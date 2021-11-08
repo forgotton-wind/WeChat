@@ -45,6 +45,7 @@
 <script>
 import axios from 'axios'
 import Qs from 'qs'
+import pinyin from 'js-pinyin'
 
 export default {
   name: "Login",
@@ -61,13 +62,13 @@ export default {
     handleLogin() {
       var that = this;
       var mydata={
-        u_account:that.account,
-        u_password:that.password
+        user_account:that.account,
+        user_password:that.password
       }
       //在这里进行跨域请求
       that.axios({
         method: "post",
-        url: 'http://127.0.0.1:8077/WeChat/user/login?user_account='+mydata.u_account+'&user_password='+mydata.u_password,
+        url: 'http://127.0.0.1:8077/WeChat/user/login',
         data:Qs.stringify(mydata)
       })
       .then(function(res) {
@@ -99,6 +100,27 @@ export default {
             that.$store.state.tempLinkman.city = linkman.city
             that.$store.state.tempLinkman.bloodtype = linkman.bloodType
             that.$store.state.tempLinkman.avatar = linkman.gravatar
+
+            let nickname = that.$store.state.tempLinkman.nickname;
+            if (nickname===null) {
+              nickname = that.$store.state.tempLinkman.account;
+            }
+
+            //判断昵称是否为中文
+            var reg = new RegExp("[\\u4E00-\\u9FFF]+","g");
+        　　if (reg.test(nickname[0])) {
+              //中文昵称
+              let char = ''
+              pinyin.setOptions({checkPolyphone:false,charCase:0});
+              char = pinyin.getCamelChars(nickname)
+              let type = char[0];
+              that.$store.state.tempLinkman.type = type;
+            } else {
+              //英文昵称
+              let char = nickname.toString().charAt(0).toUpperCase()
+              that.$store.state.tempLinkman.type = char
+            }
+
             that.$store.state.linkmans.push(JSON.parse(JSON.stringify(that.$store.state.tempLinkman)))
           }
           //切换到主页面

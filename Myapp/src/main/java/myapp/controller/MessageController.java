@@ -15,8 +15,8 @@ public class MessageController extends BaseController implements MessageApi {
     private MessageService messageService;
 
     @Override
-    public ResponseEntity<RespResult> messageTransmit(Integer mFromId, Integer mToId, String content, Integer type) {
-        RespResult respResult = messageService.messageTransmit(mFromId, mToId, content, type);
+    public ResponseEntity<RespResult> messageTransmit(Integer mFromId, Integer mToId, String content, Integer type, String time) {
+        RespResult respResult = messageService.messageTransmit(mFromId, mToId, content, type, time);
         return new ResponseEntity<RespResult>(respResult, HttpStatus.OK);
     }
 

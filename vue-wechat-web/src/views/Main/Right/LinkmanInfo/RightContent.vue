@@ -3,10 +3,10 @@
     <img v-if="linkOrTemp" class="avatar" :src="linkman.avatar" />
     <img v-else class="avatar" :src="tempLinkman.avatar" />
     <h4 v-if="linkOrTemp" class="nickname">
-      {{ linkman.alias ? linkman.alias : linkman.nickname }}
+      {{ tempLinkman.nickname ? tempLinkman.nickname : tempLinkman.account }}
     </h4>
     <h4 v-else class="nickname">
-      {{ tempLinkman.alias ? tempLinkman.alias : tempLinkman.nickname }}
+      {{ tempLinkman.nickname ? tempLinkman.nickname : tempLinkman.account }}
     </h4>
 
     <div class="group-window-wrap" v-if="isgroup">
@@ -33,7 +33,6 @@ import pinyin from 'js-pinyin'
 
 export default {
   name: "RightContent",
-  inject:"[reload]",
   computed: {
     linkman() {
       const currentLinkman = this.$store.state.currentLinkman;
@@ -88,15 +87,25 @@ export default {
         console.log(res);
         if (res.data.msg=="添加好友成功") {
 
-          //TODO 没有nickname(根据账号的话，要考虑英文开头)
           let nickname = that.$store.state.tempLinkman.nickname;
+          if (nickname===null) {
+            nickname = that.$store.state.tempLinkman.account;
+          }
 
-          //默认中文昵称
-          let char = ''
-          pinyin.setOptions({checkPolyphone:false,charCase:0});
-          char = pinyin.getCamelChars(nickname)
-          let type = char[0];
-          that.$store.state.tempLinkman.type = type;
+          //判断昵称是否为中文
+          var reg = new RegExp("[\\u4E00-\\u9FFF]+","g");
+      　　if (reg.test(nickname[0])) {
+            //中文昵称
+            let char = ''
+            pinyin.setOptions({checkPolyphone:false,charCase:0});
+            char = pinyin.getCamelChars(nickname)
+            let type = char[0];
+            that.$store.state.tempLinkman.type = type;
+          } else {
+            //英文昵称
+            let char = nickname.toString().charAt(0).toUpperCase()
+            that.$store.state.tempLinkman.type = char
+          }
           that.$store.commit("addLinkman");
           that.$store.state.isfriend = true;
           alert(res.data.msg);

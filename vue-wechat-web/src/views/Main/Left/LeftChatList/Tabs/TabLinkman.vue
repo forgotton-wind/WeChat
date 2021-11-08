@@ -16,7 +16,7 @@
           <img class="avatar" :src="linkman.avatar" />
         </div>
         <div class="nickname">
-          {{ linkman.alias ? linkman.alias : linkman.nickname }}
+          {{ linkman.nickname ? linkman.nickname : linkman.account }}
         </div>
       </div>
     </div>
@@ -87,7 +87,8 @@ export default {
     handleNewChat(kindIndex, lIndex) {
       for (let i = 0; i < this.$store.state.linkmans.length; i++) {
         const linkman = this.$store.state.linkmans[i];
-        if (linkman.id === this.kinds[kindIndex].linkmans[lIndex].id) {
+        if (linkman.id === this.kinds[kindIndex].linkmans[lIndex].id
+        && linkman.type == this.kinds[kindIndex].linkmans[lIndex].type) {
           this.$store.commit("addChat", i);
           return;
         }

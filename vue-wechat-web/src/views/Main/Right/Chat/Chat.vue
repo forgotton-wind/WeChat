@@ -1,6 +1,6 @@
 <template>
   <div class="chat-wrap">
-    <right-header></right-header>
+    <!-- <right-header></right-header> -->
     <right-content></right-content>
     <right-footer></right-footer>
   </div>
@@ -14,7 +14,7 @@ import RightFooter from "./RightFooter";
 export default {
   name: "Chat",
   components: {
-    RightHeader,
+    // RightHeader,
     RightContent,
     RightFooter
   }

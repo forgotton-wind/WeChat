@@ -25,11 +25,10 @@ const store = new Vuex.Store({
     isgroup: false,
     isingroup: false,
     isfriend: false,
+    currentChatId: -1,
     myself: {
       id: 1,
       account: "",
-      //TODO 考虑还要不要password  可能不需要  没办法逆着解码
-      password: "",
       nickname: "",
       name: "",
       sex: "",
@@ -43,17 +42,18 @@ const store = new Vuex.Store({
     chats: [
       {
         chatId: 0,
-        linkmanIndex: 1,
+        linkmanId: 1,
         isMute: false,
         isOnTop: false,
+        isGroup: false,
         messages: [
           {
             avatar,
             ctn: "你好",
-            nickname: "用户一",
+            nickname: "小明",
             sender: 1,
             time: new Date("2011-01-11 11:11:11"),
-            type: "chat"
+            type: 1
           }
         ]
       }
@@ -84,7 +84,6 @@ const store = new Vuex.Store({
         avatar: group
       },
     ],
-    currentChatId: -1
   },
   mutations: {
     setExpression(state, isShowExpression) {
@@ -177,7 +176,8 @@ const store = new Vuex.Store({
       state.currentRight = 0;
       for (let i = 0; i < state.chats.length; i++) {
         let chat = state.chats[i];
-        if (chat.linkmanIndex === linkmanIndex) {
+        if (chat.linkmanId === state.linkmans[linkmanIndex].id
+          && (state.linkmans[linkmanIndex].type == "group"?chat.isGroup:!chat.isGroup) ) {
           state.chats.splice(i, 1);
           state.chats = [chat].concat(state.chats);
           state.currentChatId = chat.chatId;
@@ -186,10 +186,11 @@ const store = new Vuex.Store({
       }
       state.chats = [
         {
-          linkmanIndex,
+          linkmanId: state.linkmans[linkmanIndex].id,
           chatId: state.chatCount,
           isMute: false,
           isOnTop: false,
+          isGroup: (state.linkmans[linkmanIndex].type == "group") ? true : false,
           messages: []
         }
       ].concat(state.chats);
