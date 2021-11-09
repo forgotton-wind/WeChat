@@ -24,6 +24,9 @@ import Chat from "./Right/Chat/Chat";
 import LinkmanInfo from "./Right/LinkmanInfo/LinkmanInfo";
 import Profile from "./Right/Profile/RightProfile";
 
+import axios from 'axios'
+import Qs from 'qs'
+
 export default {
   name: "Main",
   components: {
@@ -33,6 +36,37 @@ export default {
     Chat,
     LinkmanInfo,
     Profile,
+  },
+  mounted(){
+    // 轮循
+    this.timer = window.setInterval(() => {
+      setTimeout(() => {
+          //轮询有无新消息
+          var that = this;
+          var mydata={
+            u_id:that.$store.state.myself.id,
+          }
+
+          that.axios({
+            method: "get",
+            url: 'http://127.0.0.1:8077/WeChat/message/inquire?id='+mydata.u_id,
+            data:Qs.stringify(mydata)
+          })
+          .then(function(res) {
+            // console.log(res);
+            if (res.data.msg=="有新消息") {
+              
+            }
+          })
+          .catch(function(err) {
+            console.log(err);
+          });
+          console.log("每秒轮询一次")
+      }, 1)
+    }, 1000);
+  },
+  destroyed(){
+    clearInterval(this.timer)
   },
   data() {
     return {

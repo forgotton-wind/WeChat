@@ -7,4 +7,5 @@ public interface UserPoMapper {
     Integer insertSelective(UserPo userPo);
     Integer updateByPrimaryKeySelective(UserPo userPo);
     Integer getIdByAccount(String account);
+    Integer updateState(Integer state);
 }

@@ -61,12 +61,20 @@ function getLinkman(ctx) {
 
   const chats = state.chats;
 
-  let linkmanIndex = state.chats[currentChatId];
+  // let linkmanIndex = state.chats[currentChatId];
+  var linkmanId
+  var linkmanIndex
   for (let chat of chats) {
     if (chat.chatId === currentChatId) {
-      linkmanIndex = chat.linkmanIndex;
+      linkmanId = chat.linkmanId;
       break;
     }
+  }
+  for (let i=0; i<state.linkmans.length; ++i) {
+      if (state.linkmans[i].id === linkmanId) {
+        linkmanIndex = i
+        break;
+      }
   }
   let linkman = state.linkmans[linkmanIndex];
   return linkman;

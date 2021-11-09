@@ -22,12 +22,14 @@ const store = new Vuex.Store({
     currentLinkman: 0,
     lIndex: 0,
     linkOrTemp: 1,
+    isgroup: false,
+    isingroup: false,
+    isfriend: false,
+    currentChatId: -1,
     myself: {
       id: 1,
-      type: "A",
-      account: "mlj",
-      password: "123",
-      nickname: "用户一",
+      account: "",
+      nickname: "",
       name: "",
       sex: "",
       birthday: "",
@@ -35,32 +37,33 @@ const store = new Vuex.Store({
       schooolname: "",
       city: "",
       bloodtype: "",
-      avatar : user
+      avatar: ""
     },
     chats: [
       {
         chatId: 0,
-        linkmanIndex: 1,
+        linkmanId: 1,
         isMute: false,
         isOnTop: false,
+        isGroup: false,
         messages: [
           {
             avatar,
             ctn: "你好",
-            nickname: "用户一",
-            sender: "p1",
+            nickname: "小明",
+            sender: 1,
             time: new Date("2011-01-11 11:11:11"),
-            type: "chat"
+            type: 1
           }
         ]
       }
     ],
     tempLinkman: {
-      id: 2,
-      type: "A",
-      account: "mlj",
-      password: "123",
-      nickname: "用户一",
+      id: 1,
+      type: "",
+      account: "",
+      password: "",
+      nickname: "",
       name: "",
       sex: "",
       birthday: "",
@@ -68,7 +71,7 @@ const store = new Vuex.Store({
       schooolname: "",
       city: "",
       bloodtype: "",
-      avatar
+      avatar: ""
     },
     linkmans: [
       {
@@ -80,38 +83,7 @@ const store = new Vuex.Store({
         region: "这是地区",
         avatar: group
       },
-      {
-        id: 2,
-        type: "A",
-        account: "mlj",
-        password: "123",
-        nickname: "用户一",
-        name: "",
-        sex: "",
-        birthday: "",
-        email: "",
-        schooolname: "",
-        city: "",
-        bloodtype: "",
-        avatar
-      },
-      {
-        id: 3,
-        type: "B",
-        account: "mlj1",
-        password: "123",
-        nickname: "用户二",
-        name: "",
-        sex: "",
-        birthday: "",
-        email: "",
-        schooolname: "",
-        city: "",
-        bloodtype: "",
-        avatar
-      }
     ],
-    currentChatId: -1
   },
   mutations: {
     setExpression(state, isShowExpression) {
@@ -185,19 +157,27 @@ const store = new Vuex.Store({
       }
     },
     getIndex(state, kind) {
-        state.lIndex = 0;
-        for (let i=0; i<state.linkmans.length; ++i) {
-          if (state.linkmans[i].type === kind) {
-            state.lIndex++;
-          }
+      state.lIndex = 0;
+      for (let i=0; i<state.linkmans.length; ++i) {
+        if (state.linkmans[i].type === kind) {
+          state.lIndex++;
         }
+      }
+    },
+    addLinkman(state) {
+      state.linkmans.push(JSON.parse(JSON.stringify(state.tempLinkman)));
+    },
+    delLinkman(state) {
+      let index = state.linkmans.findIndex(item => item.id===state.tempLinkman.id);
+      state.linkmans.splice(index, 1)
     },
     addChat(state, linkmanIndex) {
       state.currentTabIndex = 0;
       state.currentRight = 0;
       for (let i = 0; i < state.chats.length; i++) {
         let chat = state.chats[i];
-        if (chat.linkmanIndex === linkmanIndex) {
+        if (chat.linkmanId === state.linkmans[linkmanIndex].id
+          && (state.linkmans[linkmanIndex].type == "group"?chat.isGroup:!chat.isGroup) ) {
           state.chats.splice(i, 1);
           state.chats = [chat].concat(state.chats);
           state.currentChatId = chat.chatId;
@@ -206,10 +186,11 @@ const store = new Vuex.Store({
       }
       state.chats = [
         {
-          linkmanIndex,
+          linkmanId: state.linkmans[linkmanIndex].id,
           chatId: state.chatCount,
           isMute: false,
           isOnTop: false,
+          isGroup: (state.linkmans[linkmanIndex].type == "group") ? true : false,
           messages: []
         }
       ].concat(state.chats);

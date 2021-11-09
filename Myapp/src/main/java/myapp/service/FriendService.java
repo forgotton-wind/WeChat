@@ -6,4 +6,5 @@ public interface FriendService {
     RespResult addFriend(Integer uId, Integer fId);
     RespResult inquireFriend(Integer id);
     RespResult findFriend(String account);
+    RespResult delFriend(Integer uId, Integer fId);
 }

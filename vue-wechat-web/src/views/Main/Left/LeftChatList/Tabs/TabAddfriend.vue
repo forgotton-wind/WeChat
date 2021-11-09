@@ -39,7 +39,6 @@
 // import img from "@/assets/background.png";
 import axios from 'axios'
 import Qs from 'qs'
-import pinyin from 'js-pinyin'
 
 export default {
   name: "TabChat",
@@ -55,7 +54,7 @@ export default {
     this.articles.push("");
   },
   methods: {
-    //根据账号，添加好友
+    //根据账号，查找好友
     handlefindfriend() {
       var that = this;
       var mydata={
@@ -72,31 +71,26 @@ export default {
         console.log(res);
         if (res.data.msg=="查找成功") {
           that.$store.state.linkOrTemp = 0;
-          that.$store.state.tempLinkman.id = res.data.data.uid;
-          that.$store.state.tempLinkman.nickname = res.data.data.nickName;
-          //TODO 以上未完待续
+          that.$store.state.tempLinkman.id = res.data.data.uid
+          that.$store.state.tempLinkman.account = res.data.data.userAccount
+          that.$store.state.tempLinkman.nickname = res.data.data.nickName
+          that.$store.state.tempLinkman.name = res.data.data.name
+          that.$store.state.tempLinkman.sex = res.data.data.sex
+          that.$store.state.tempLinkman.birthday = res.data.data.birthday
+          that.$store.state.tempLinkman.email = res.data.data.email
+          that.$store.state.tempLinkman.schoolname = res.data.data.schoolName
+          that.$store.state.tempLinkman.city = res.data.data.city
+          that.$store.state.tempLinkman.bloodtype = res.data.data.bloodType
+          that.$store.state.tempLinkman.avatar = res.data.data.gravatar
+          that.$store.state.isfriend = false
+          for (let i=0; i<that.$store.state.linkmans.length; ++i) {
+            if (that.$store.state.linkmans[i].id === that.$store.state.tempLinkman.id &&
+            that.$store.state.linkmans[i].type != "group") {
+              that.$store.state.isfriend = true
+              break;
+            }
+          }
           that.$store.commit("setCurrentRight", 1);
-          // let f_id = res.data.data.uid
-          // let name = res.data.data.nickName
-          // let char = ''
-          // pinyin.setOptions({checkPolyphone:false,charCase:0});
-          // char = pinyin.getCamelChars(name)
-          // let kindIndex = char[0];
-          // that.$store.commit("getIndex", kindIndex);
-          // let lIndex = that.$store.state.lIndex;
-          // console.log(kindIndex);
-          // console.log(lIndex);
-
-          // console.log(f_id);
-          // const linkmans = that.$store.state.linkmans;
-          // console.log(linkmans.length);
-          // for (let i = 0; i < linkmans.length; i++) {
-          //   if (f_id === linkmans[i].id && linkmans[i].type != "group") {
-          //     that.$store.commit("setCurrentRight", 1);
-          //     that.$store.commit("setCurrentLinkman", i);
-          //     break;
-          //   }
-          // }
         } else {
           alert(res.data.msg);
         }
@@ -104,32 +98,8 @@ export default {
       .catch(function(err) {
         console.log(err);
       });
-
-        // var that = this;
-        // var mydata={
-        //   u_id: that.$store.state.myself.id,
-        //   u_friendAccount:that.friendAccount,
-        // }
-
-        // that.axios({
-        //   method: "post",
-        //   url: 'http://127.0.0.1:8077/WeChat/friend/add?f_uid='+mydata.u_id+'&f_account='+mydata.u_friendAccount,
-        //   data:Qs.stringify(mydata)
-        // })
-        // .then(function(res) {
-        //   console.log(res);
-        //   if (res.data.msg=="添加好友成功") {
-        //     alert(res.data.msg);
-        //   } else {
-
-        //     alert(res.data.msg);
-        //   }
-        // })
-        // .catch(function(err) {
-        //   console.log(err);
-        // });
     },
-    //根据群号，添加好友群组
+    //根据群号，查找群组
     handlefindgroup() {
         var that = this;
         var mydata={
@@ -142,10 +112,10 @@ export default {
           data:Qs.stringify(mydata)
         })
         .then(function(res) {
-          if (res.data.msg=="添加群组成功!") {
+          if (res.data.msg=="查找成功") {
+
             alert(res.data.msg);
           } else {
-
             alert(res.data.msg);
           }
         })

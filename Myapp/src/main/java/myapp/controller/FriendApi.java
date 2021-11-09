@@ -31,4 +31,12 @@ public interface FriendApi {
             method = RequestMethod.POST)
     ResponseEntity<RespResult> findFriend(@NotNull @ApiParam(value = "查找账号", required = true) @RequestParam(value = "account") String account
     );
+
+    @ApiOperation(value = "删除好友", notes = "Del Friend", response = RespResult.class, tags={ "Friend", })
+    @RequestMapping(value = "/friend/del",
+            produces = { "application/json" },
+            method = RequestMethod.POST)
+    ResponseEntity<RespResult> delFriend(@NotNull @ApiParam(value = "本人id", required = true) @RequestParam(value = "f_uid") Integer uId,
+                                         @NotNull @ApiParam(value = "好友id", required = true) @RequestParam(value = "f_id") Integer fId
+    );
 }

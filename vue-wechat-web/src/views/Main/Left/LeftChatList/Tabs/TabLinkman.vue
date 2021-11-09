@@ -16,7 +16,7 @@
           <img class="avatar" :src="linkman.avatar" />
         </div>
         <div class="nickname">
-          {{ linkman.alias ? linkman.alias : linkman.nickname }}
+          {{ linkman.nickname ? linkman.nickname : linkman.account }}
         </div>
       </div>
     </div>
@@ -56,6 +56,7 @@ export default {
   },
   methods: {
     handleShowDetail(kindIndex, lIndex) {
+      var that = this
       this.$store.state.linkOrTemp = 1;
       this.currentLinkman = "k" + kindIndex + "l" + lIndex;
       const id = this.kinds[kindIndex].linkmans[lIndex].id;
@@ -64,6 +65,19 @@ export default {
       this.$store.commit("setCurrentRight", 1);
       for (let i = 0; i < linkmans.length; i++) {
         if (id === linkmans[i].id && linkmans[i].type === this.kinds[kindIndex].linkmans[lIndex].type) {
+          this.$store.state.isfriend = true
+          let linkman = linkmans[i]
+          that.$store.state.tempLinkman.id = linkman.id
+          that.$store.state.tempLinkman.account = linkman.account
+          that.$store.state.tempLinkman.nickname = linkman.nickname
+          that.$store.state.tempLinkman.name = linkman.name
+          that.$store.state.tempLinkman.sex = linkman.sex
+          that.$store.state.tempLinkman.birthday = linkman.birthday
+          that.$store.state.tempLinkman.email = linkman.email
+          that.$store.state.tempLinkman.schoolname = linkman.schoolname
+          that.$store.state.tempLinkman.city = linkman.city
+          that.$store.state.tempLinkman.bloodtype = linkman.bloodtype
+          that.$store.state.tempLinkman.avatar = linkman.avatar
           this.$store.commit("setCurrentLinkman", i);
           break;
         }
@@ -73,7 +87,8 @@ export default {
     handleNewChat(kindIndex, lIndex) {
       for (let i = 0; i < this.$store.state.linkmans.length; i++) {
         const linkman = this.$store.state.linkmans[i];
-        if (linkman.id === this.kinds[kindIndex].linkmans[lIndex].id) {
+        if (linkman.id === this.kinds[kindIndex].linkmans[lIndex].id
+        && linkman.type == this.kinds[kindIndex].linkmans[lIndex].type) {
           this.$store.commit("addChat", i);
           return;
         }
