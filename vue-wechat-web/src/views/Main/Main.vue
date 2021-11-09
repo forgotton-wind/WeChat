@@ -53,9 +53,18 @@ export default {
             data:Qs.stringify(mydata)
           })
           .then(function(res) {
-            // console.log(res);
+            console.log(res);
             if (res.data.msg=="有新消息") {
-              
+              for (let i=0; i<res.data.data.length; ++i) {
+                var mydata  = {
+                  ctn: res.data.data[i].content,
+                  time: res.data.data[i].time,
+                  type: res.data.data[i].typeId,
+                  fromId: res.data.data[i].fromId,
+                  toId: res.data.data[i].toId
+                }
+                that.$store.commit("receiveChat", mydata)
+              }
             }
           })
           .catch(function(err) {

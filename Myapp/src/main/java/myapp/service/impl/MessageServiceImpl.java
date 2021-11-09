@@ -4,6 +4,7 @@ import myapp.mapper.MessagePoMapper;
 import myapp.model.MessagePo;
 import myapp.service.MessageService;
 import myapp.util.RespResult;
+import org.aspectj.bridge.Message;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.Date;
@@ -38,6 +39,12 @@ public class MessageServiceImpl implements MessageService {
         if (list.isEmpty()) {
             return RespResult.success("无新消息");
         }
+
+        //将消息设置为已读
+        for (MessagePo messagePo: list) {
+            messagePoMapper.setMessageReaded(messagePo.getFromId(), id);
+        }
+
         return RespResult.success("有新消息", list);
     }
 

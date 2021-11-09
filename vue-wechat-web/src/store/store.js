@@ -16,7 +16,7 @@ const store = new Vuex.Store({
     isShowMyInfo: false,
     isShowChatterInfo: false,
     isShowSearch: false,
-    chatCount: 1,
+    chatCount: 0,
     currentTabIndex: 0,
     currentRight: 0,
     currentLinkman: 0,
@@ -40,23 +40,23 @@ const store = new Vuex.Store({
       avatar: ""
     },
     chats: [
-      {
-        chatId: 0,
-        linkmanId: 1,
-        isMute: false,
-        isOnTop: false,
-        isGroup: false,
-        messages: [
-          {
-            avatar,
-            ctn: "你好",
-            nickname: "小明",
-            sender: 1,
-            time: new Date("2011-01-11 11:11:11"),
-            type: 1
-          }
-        ]
-      }
+      // {
+      //   chatId: 0,
+      //   linkmanId: 3,
+      //   isMute: false,
+      //   isOnTop: false,
+      //   isGroup: false,
+      //   messages: [
+      //     {
+      //       avatar,
+      //       ctn: "你好",
+      //       nickname: "小明",
+      //       sender: 1,
+      //       time: new Date("2011-01-11 11:11:11"),
+      //       type: 1
+      //     }
+      //   ]
+      // }
     ],
     tempLinkman: {
       id: 1,
@@ -196,6 +196,66 @@ const store = new Vuex.Store({
       ].concat(state.chats);
       state.currentChatId = state.chatCount;
 
+      state.chatCount += 1;
+    },
+    getIndexById(state, id) {
+      for (let i=0; i<state.linkmans.length; ++i) {
+        if (state.linkmans[i].id === id) {
+          state.currentLinkman = i
+          return;
+        }
+      }
+    },
+    receiveChat(state, mydata) {
+      // state.currentTabIndex = 0;
+      // state.currentRight = 0;
+      for (let i=0; i<state.linkmans.length; ++i) {
+        if (state.linkmans[i].id === mydata.fromId && state.linkmans[i].type !== "group") {
+          state.currentLinkman = i
+          break
+        }
+      }
+      const linkman = state.linkmans[state.currentLinkman]
+      for (let i = 0; i < state.chats.length; i++) {
+        let chat = state.chats[i]
+        if (chat.linkmanId === mydata.fromId && chat.isGroup === false) {
+          state.chats.splice(i, 1);
+          state.chats = [chat].concat(state.chats);
+          state.currentChatId = chat.chatId;
+          
+          var mydata2 = {
+            ctn: mydata.ctn,
+            time: new Date(mydata.time),
+            type: mydata.type,
+            avatar: linkman.avatar,
+            nickname: linkman.nickname,
+            sender: mydata.fromId
+          }
+          chat.messages.push(mydata2)
+          return;
+        }
+      }
+      
+      state.chats = [
+        {
+          linkmanId: mydata.fromId,
+          chatId: state.chatCount,
+          isMute: false,
+          isOnTop: false,
+          isGroup: false,
+          messages: [
+            {
+              ctn: mydata.ctn,
+              time: new Date(mydata.time),
+              type: mydata.type,
+              avatar: linkman.avatar,
+              nickname: linkman.nickname,
+              sender: mydata.fromId
+            }
+          ]
+        }
+      ].concat(state.chats);
+      state.currentChatId = state.chatCount;
       state.chatCount += 1;
     }
   }
