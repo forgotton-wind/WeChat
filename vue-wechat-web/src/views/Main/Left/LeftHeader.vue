@@ -21,7 +21,7 @@
 <script>
 import img from "@/assets/default.png";
 import InfoBlock from "@/components/InfoBlock";
-
+var time = null;
 export default {
   name: "LeftHeader",
   components: {
@@ -32,7 +32,7 @@ export default {
       infoPosition: {
         left: -1,
         top: -1
-      }
+      },
     };
   },
   computed: {
@@ -51,12 +51,18 @@ export default {
   },
   methods: {
     handleShowMyInfo(event) {
-      const { clientX: x, clientY: y } = event;
-      this.infoPosition.top = y;
-      this.infoPosition.left = x;
-      this.$store.commit("setMyInfo", true);
+      clearTimeout(time);  //首先清除计时器
+      time = setTimeout(() => {
+        const { clientX: x, clientY: y } = event;
+        this.infoPosition.top = y;
+        this.infoPosition.left = x;
+        this.$store.commit("setMyInfo", true);
+      },300);
+
+
     },
     handleModifyMyInfo() {
+      clearTimeout(time);  //清除
       this.$store.commit("setCurrentRight",2);
     }
   }
