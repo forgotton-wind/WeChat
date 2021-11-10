@@ -72,7 +72,7 @@ export default {
           });
           console.log("每秒轮询一次")
       }, 1)
-    }, 1000000);
+    }, 1000);
   },
   destroyed(){
     clearInterval(this.timer)

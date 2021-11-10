@@ -18,7 +18,7 @@
         <div class="personal-information-left">
           <h4 class="name-label"> 姓 名 修 改 </h4>
           <h4 class="sex-label"> 性 别 修 改 </h4>
-          <!-- <h4 class="birthday-label"> 生 日 修 改 </h4> -->
+          <h4 class="birthday-label"> 生 日 修 改 </h4>
           <h4 class="email-label"> 邮 箱 修 改 </h4>
           <h4 class="schoolname-label"> 学 校 修 改 </h4>
           <h4 class="city-label"> 城 市 修 改 </h4>
@@ -27,7 +27,7 @@
         <div class="personal-information-right">
           <input v-model="name" class="name-input" type="text" placeholder="姓名" />
           <input v-model="sex" class="sex-input" type="text" placeholder="性别" />
-          <!-- <input v-model="birthday" class="birthday-input" type="date" placeholder="生日" /> -->
+          <input v-model="birthday" class="birthday-input" type="date" placeholder="生日" />
           <input v-model="email" class="email-input" type="text" placeholder="邮箱" />
           <input v-model="schoolname" class="schoolname-input" type="text" placeholder="学校" />
           <input v-model="city" class="city-input" type="text" placeholder="城市" />
@@ -42,6 +42,20 @@
 <script>
 import axios from 'axios'
 import Qs from 'qs'
+function dateFormat(time) {
+    var date=new Date(time);
+    var year=date.getFullYear();
+    /* 在日期格式中，月份是从0开始的，因此要加0
+     * 使用三元表达式在小于10的前面加0，以达到格式统一  如 09:11:05
+     * */
+    var month= date.getMonth()+1<10 ? "0"+(date.getMonth()+1) : date.getMonth()+1;
+    var day=date.getDate()<10 ? "0"+date.getDate() : date.getDate();
+    var hours=date.getHours()<10 ? "0"+date.getHours() : date.getHours();
+    var minutes=date.getMinutes()<10 ? "0"+date.getMinutes() : date.getMinutes();
+    var seconds=date.getSeconds()<10 ? "0"+date.getSeconds() : date.getSeconds();
+    // 拼接
+    return year+"-"+month+"-"+day+" "+hours+":"+minutes+":"+seconds;
+}
 
 export default {
     name :'modifyprofile',
@@ -52,7 +66,7 @@ export default {
             password:'',
             name:'',
             sex:'',
-            // birthday: new Date(),
+            birthday:'',
             email:'',
             schoolname:'',
             city:'',
@@ -75,7 +89,7 @@ export default {
           nickName: that.nickname,
           name: that.name,
           sex: that.sex,
-          // birthday: that.birthday,
+          birthday: new Date(dateFormat(that.birthday)),
           email: that.email,
           schoolName: that.schoolname,
           city: that.city,
@@ -122,7 +136,7 @@ height: 100%;
 width:300px;
 }
 .avatar{
-height: 50%;
+height: 300px;
 width:300px;
 }
 .acount-information-right{
