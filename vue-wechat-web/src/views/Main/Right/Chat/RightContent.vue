@@ -1,8 +1,13 @@
 <template>
   <div id="content" class="wrap list-wrap">
-    <info-block
+    <info-block v-if=showchatter
       :visible="isShowChatterInfo"
       :memberInfo="chatterInfo"
+      :infoPosition="infoPosition"
+    ></info-block>
+    <info-block v-else
+      :visible="isShowChatterInfo"
+      :memberInfo="myselfInfo"
       :infoPosition="infoPosition"
     ></info-block>
     <div class="no-chat-wrap" v-if="isNoChat">
@@ -29,7 +34,7 @@
               <img
                 :src="msg.avatar"
                 class="msg-avatar msg-avatar-right"
-                @click.stop="handleShowChatterInfo($event, index)"
+                @click.stop="handleShowMyselfInfo($event, index)"
               />
             </div>
             <div class="msg-main" v-else>
@@ -91,16 +96,38 @@ export default {
     isShowChatterInfo() {
       return this.$store.state.isShowChatterInfo;
     },
-    chatterInfo() {
+    myselfInfo() {
+      const myself = this.$store.state.myself
       return {
-        id: "p1",
-        type: "A",
-        nickname: "用户一",
-        gender: "",
-        alias: "",
-        region: "这是地区",
-        avatar
+        id: myself.id,
+        avatar:myself.avatar,
+        type: myself.type,
+        nickname: myself.nickname,
+        name: myself.name,
+        sex: myself.sex,
+        email: myself.email,
+        city: myself.city,
+        schoolname:myself.schoolname,
+        bloodtype:myself.bloodtype,
       };
+    },
+    chatterInfo() {
+      const linkman = this.$store.state.linkmans[this.$store.state.currentLinkman]
+      return {
+        id: linkman.id,
+        avatar:linkman.avatar,
+        type: linkman.type,
+        nickname: linkman.nickname,
+        name: linkman.name,
+        sex: linkman.sex,
+        email: linkman.email,
+        city: linkman.city,
+        schoolname:linkman.schoolname,
+        bloodtype:linkman.bloodtype,
+      };
+    },
+    showchatter() {
+      return this.$store.state.showchatter
     }
   },
   methods: {
@@ -122,7 +149,16 @@ export default {
       const m = d.getMinutes() < 10 ? "0" + d.getMinutes() : d.getMinutes();
       return `${h}:${m}`;
     },
+    handleShowMyselfInfo(event, index) {
+      this.$store.state.showchatter = false;
+      const { clientX: x, clientY: y } = event;
+      this.infoPosition.top = y;
+      this.infoPosition.left = x;
+      this.chatterInfoIndex = index;
+      this.$store.commit("setChatterInfo", true);
+    },
     handleShowChatterInfo(event, index) {
+      this.$store.state.showchatter = true;
       const { clientX: x, clientY: y } = event;
       this.infoPosition.top = y;
       this.infoPosition.left = x;

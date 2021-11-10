@@ -10,6 +10,7 @@ import user from "../assets/user.jpeg";
 const store = new Vuex.Store({
   state: {
     token: "",
+    showchatter: true,
     isShowExpression: false,
     isShowMembers: false,
     isShowMemberInfo: false,
@@ -105,6 +106,15 @@ const store = new Vuex.Store({
     },
     setMemberInfo(state, isShowMemberInfo) {
       state.isShowMemberInfo = isShowMemberInfo;
+    },
+    setMyselfInfo(state, isShowMyselfInfo) {
+      if (isShowMyselfInfo) {
+        state.isShowMembers = false;
+        state.isShowMemberInfo = false;
+        state.isShowExpression = false;
+        state.isShowChatterInfo = false;
+      }
+      state.isShowChatterInfo = isShowChatterInfo;
     },
     setChatterInfo(state, isShowChatterInfo) {
       if (isShowChatterInfo) {

@@ -31,12 +31,30 @@
       </div>
       <div class="member-info-text">
         <span style="margin-right: 10px;">备注:</span>
-        {{ memberInfo.alias }}
+        {{ memberInfo.name }}
+      </div>
+      <div class="member-info-text">
+        <span style="margin-right: 10px;">性别:</span>
+        {{ memberInfo.sex }}
+      </div>
+      <div class="member-info-text">
+        <span style="margin-right: 10px;">邮箱:</span>
+        {{ memberInfo.email }}
       </div>
       <div class="member-info-text">
         <span style="margin-right: 10px;">地区:</span>
-        {{ memberInfo.region }}
+        {{ memberInfo.city }}
       </div>
+      <div class="member-info-text">
+        <span style="margin-right: 10px;">学校:</span>
+        {{ memberInfo.schoolname }}
+      </div>
+      <div class="member-info-text">
+        <span style="margin-right: 10px;">血型:</span>
+        {{ memberInfo.bloodtype }}
+      </div>
+
+      
     </div>
   </div>
 </template>
@@ -69,7 +87,7 @@ export default {
 .member-info-wrap {
   position: absolute;
   width: 220px;
-  height: 334px;
+  height: 400px;
   box-shadow: rgba(0, 0, 0, 0.1) 0 5px 10px;
   background-color: #eee;
   z-index: 8;
@@ -90,7 +108,7 @@ export default {
 
 .member-info-detail {
   width: 180px;
-  height: 74px;
+  height: 400px;
   padding: 20px;
   background-color: #fff;
 }
