@@ -36,6 +36,10 @@ public class FriendServiceImpl implements FriendService {
         friendPo.setUId(uId);
         friendPo.setFId(fId);
         friendPoMapper.addFriend(friendPo);
+
+        friendPo.setUId(fId);
+        friendPo.setFId(uId);
+        friendPoMapper.addFriend(friendPo);
         return RespResult.success("添加好友成功");
     }
 
@@ -66,6 +70,7 @@ public class FriendServiceImpl implements FriendService {
         }
 
         friendPoMapper.delFriend(uId, fId);
+        friendPoMapper.delFriend(fId, uId);
         return RespResult.success("删除好友成功");
     }
 }

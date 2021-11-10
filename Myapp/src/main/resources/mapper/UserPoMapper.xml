@@ -48,40 +48,40 @@
     <update id="updateByPrimaryKeySelective" parameterType="myapp.model.UserPo">
         update t_user
         <set>
-            <if test="password != null">
+            <if test="password != null and password != ''">
                 u_password = #{password,jdbcType=VARCHAR},
             </if>
-            <if test="state != null">
+            <if test="state != null and state != ''">
                 u_state = #{state,jdbcType=INTEGER},
             </if>
-            <if test="gravatar != null">
+            <if test="gravatar != null and gravatar != ''">
                 u_gravatar = #{gravatar,jdbcType=VARCHAR},
             </if>
-            <if test="nickName != null">
+            <if test="nickName != null and nickName != ''">
                 u_nickname = #{nickName,jdbcType=VARCHAR},
             </if>
-            <if test="name != null">
+            <if test="name != null and name != ''">
                 u_name = #{name,jdbcType=VARCHAR},
             </if>
-            <if test="sex != null">
+            <if test="sex != null and sex != ''">
                 u_sex = #{sex,jdbcType=VARCHAR},
             </if>
-            <if test="birthday != null">
+            <if test="birthday != null and birthday != ''">
                 u_birthday = #{birthday, jdbcType=TIMESTAMP},
             </if>
-            <if test="email != null">
+            <if test="email != null and email != ''">
                 u_email = #{email,jdbcType=VARCHAR},
             </if>
-            <if test="schoolName != null">
+            <if test="schoolName != null and schoolName != ''">
                 u_schoolname = #{schoolName,jdbcType=VARCHAR},
             </if>
-            <if test="city != null">
+            <if test="city != null and city != ''">
                 u_city = #{city,jdbcType=VARCHAR},
             </if>
-            <if test="bloodType != null">
+            <if test="bloodType != null and bloodType != ''">
                 u_bloodType = #{bloodType,jdbcType=VARCHAR},
             </if>
-            <if test="phone != null">
+            <if test="phone != null and phone !=''">
                 u_phone = #{phone,jdbcType=VARCHAR},
             </if>
         </set>

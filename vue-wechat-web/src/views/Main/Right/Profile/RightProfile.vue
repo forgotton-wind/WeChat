@@ -18,7 +18,7 @@
         <div class="personal-information-left">
           <h4 class="name-label"> 姓 名 修 改 </h4>
           <h4 class="sex-label"> 性 别 修 改 </h4>
-          <h4 class="birthday-label"> 生 日 修 改 </h4>
+          <!-- <h4 class="birthday-label"> 生 日 修 改 </h4> -->
           <h4 class="email-label"> 邮 箱 修 改 </h4>
           <h4 class="schoolname-label"> 学 校 修 改 </h4>
           <h4 class="city-label"> 城 市 修 改 </h4>
@@ -27,7 +27,7 @@
         <div class="personal-information-right">
           <input v-model="name" class="name-input" type="text" placeholder="姓名" />
           <input v-model="sex" class="sex-input" type="text" placeholder="性别" />
-          <input v-model="birthday" class="birthday-input" type="text" placeholder="生日" />
+          <!-- <input v-model="birthday" class="birthday-input" type="date" placeholder="生日" /> -->
           <input v-model="email" class="email-input" type="text" placeholder="邮箱" />
           <input v-model="schoolname" class="schoolname-input" type="text" placeholder="学校" />
           <input v-model="city" class="city-input" type="text" placeholder="城市" />
@@ -40,6 +40,9 @@
 </template>
 
 <script>
+import axios from 'axios'
+import Qs from 'qs'
+
 export default {
     name :'modifyprofile',
     data() {
@@ -49,7 +52,7 @@ export default {
             password:'',
             name:'',
             sex:'',
-            birthday:'',
+            // birthday: new Date(),
             email:'',
             schoolname:'',
             city:'',
@@ -64,21 +67,31 @@ export default {
 
     methods:{
       commitModify(){
-      var that = this;
-      var mydata={
-        u_account:that.account,
-        u_password:that.password
-      }
+        var that = this;
+        var mydata={
+          uid: that.$store.state.myself.id,
+          password: that.password,
+          gravatar: that.avatar,
+          nickName: that.nickname,
+          name: that.name,
+          sex: that.sex,
+          // birthday: that.birthday,
+          email: that.email,
+          schoolName: that.schoolname,
+          city: that.city,
+          bloodType: that.bloodtype,
+          state: 0,
+        }
       //在这里进行跨域请求
       that.axios({
-        method: "post",
-        url: 'http://127.0.0.1:8077/WeChat/user/login?user_account='+mydata.u_account+'&user_password='+mydata.u_password,
-        data:Qs.stringify(mydata)
+        method: "put",
+        url: 'http://127.0.0.1:8077/WeChat/user/update',
+        data: mydata
       })
       .then(function(res) {
         console.log(res);
-        if (res.data.msg=="登录成功!") {
-          that.$router.push("main");
+        if (res.data.msg=="修改成功!") {
+          alert(res.data.msg);
         } else {
           alert(res.data.msg);
         }
