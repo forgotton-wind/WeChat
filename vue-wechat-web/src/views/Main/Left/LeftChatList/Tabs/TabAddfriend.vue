@@ -26,7 +26,7 @@
         <div class="add-group-input">
           <input v-model="groupAccount" class="add-group-groupAccount" type="text" placeholder="群号" />
           <button class="add-group-btn" v-on:click="handlefindgroup">
-            添 加 群 组
+            查 找 群 组
           </button>
         </div>
       </div>
@@ -82,6 +82,7 @@ export default {
           that.$store.state.tempLinkman.city = res.data.data.city
           that.$store.state.tempLinkman.bloodtype = res.data.data.bloodType
           that.$store.state.tempLinkman.avatar = res.data.data.gravatar
+          that.$store.state.isgroup = false
           that.$store.state.isfriend = false
           for (let i=0; i<that.$store.state.linkmans.length; ++i) {
             if (that.$store.state.linkmans[i].id === that.$store.state.tempLinkman.id &&
@@ -103,18 +104,29 @@ export default {
     handlefindgroup() {
         var that = this;
         var mydata={
-          u_groupAccount:that.groupAccount,
+          g_name: that.groupAccount,
         }
 
         that.axios({
           method: "post",
-          url: 'http://127.0.0.1:8077/WeChat/user/register?user_account='+mydata.u_account+'&user_password='+mydata.u_password+'&confirm_password='+mydata.u_password2,
+          url: 'http://127.0.0.1:8077/WeChat/group/search',
           data:Qs.stringify(mydata)
         })
         .then(function(res) {
           if (res.data.msg=="查找成功") {
-
-            alert(res.data.msg);
+            that.$store.state.linkOrTemp = 0;
+            that.$store.state.tempLinkman.id = res.data.data.id
+            that.$store.state.tempLinkman.nickname = res.data.data.name
+            that.$store.state.isgroup = true
+            that.$store.state.isingroup = false
+            for (let i=0; i<that.$store.state.linkmans.length; ++i) {
+              if (that.$store.state.linkmans[i].id === that.$store.state.tempLinkman.id &&
+              that.$store.state.linkmans[i].type == "group") {
+                that.$store.state.isingroup = true
+                break;
+              }
+            }
+            that.$store.commit("setCurrentRight", 1);
           } else {
             alert(res.data.msg);
           }

@@ -22,7 +22,7 @@
       >
         <img class="search-result-avatar" :src="friend.avatar" />
         <div class="search-result-text">
-          {{ friend.alias !== "" ? friend.alias : friend.nickname }}
+          {{ friend.nickname !== "" ? friend.nickname : friend.account }}
         </div>
       </div>
       <div

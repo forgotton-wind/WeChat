@@ -65,7 +65,13 @@ export default {
       this.$store.commit("setCurrentRight", 1);
       for (let i = 0; i < linkmans.length; i++) {
         if (id === linkmans[i].id && linkmans[i].type === this.kinds[kindIndex].linkmans[lIndex].type) {
-          this.$store.state.isfriend = true
+          if (this.kinds[kindIndex].linkmans[lIndex].type=="group") {
+            this.$store.state.isgroup = true
+            this.$store.state.isingroup = true
+          } else {
+            this.$store.state.isgroup = false
+            this.$store.state.isfriend = true
+          }
           let linkman = linkmans[i]
           that.$store.state.tempLinkman.id = linkman.id
           that.$store.state.tempLinkman.account = linkman.account

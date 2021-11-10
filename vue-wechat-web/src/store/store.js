@@ -74,15 +74,15 @@ const store = new Vuex.Store({
       avatar: ""
     },
     linkmans: [
-      {
-        id: 2,
-        type: "group",
-        members: ["p1", "p2"],
-        nickname: "这是群组",
-        gender: "",
-        region: "这是地区",
-        avatar: group
-      },
+      // {
+      //   id: 2,
+      //   type: "group",
+      //   members: ["p1", "p2"],
+      //   nickname: "这是群组",
+      //   gender: "",
+      //   region: "这是地区",
+      //   avatar: group
+      // },
     ],
   },
   mutations: {
@@ -167,9 +167,14 @@ const store = new Vuex.Store({
     addLinkman(state) {
       state.linkmans.push(JSON.parse(JSON.stringify(state.tempLinkman)));
     },
-    delLinkman(state) {
-      let index = state.linkmans.findIndex(item => item.id===state.tempLinkman.id);
-      state.linkmans.splice(index, 1)
+    delLinkman(state, isgroup) {
+      if (isgroup) {
+        let index = state.linkmans.findIndex(item => item.id===state.tempLinkman.id && item.type=="group");
+        state.linkmans.splice(index, 1)
+      } else {
+        let index = state.linkmans.findIndex(item => item.id===state.tempLinkman.id && item.type!="group");
+        state.linkmans.splice(index, 1)
+      }
     },
     addChat(state, linkmanIndex) {
       state.currentTabIndex = 0;

@@ -46,6 +46,7 @@
 import axios from 'axios'
 import Qs from 'qs'
 import pinyin from 'js-pinyin'
+import avatar from "../../assets/default.png"
 
 export default {
   name: "Login",
@@ -121,6 +122,15 @@ export default {
               that.$store.state.tempLinkman.type = char
             }
 
+            that.$store.state.linkmans.push(JSON.parse(JSON.stringify(that.$store.state.tempLinkman)))
+          }
+          //登陆成功后更新linkman group信息
+          for (let i=0; i<res.data.data.groupPoList.length; ++i) {
+            let linkman = res.data.data.groupPoList[i]
+            that.$store.state.tempLinkman.id = linkman.id
+            that.$store.state.tempLinkman.nickname = linkman.name
+            that.$store.state.tempLinkman.type = "group"
+            that.$store.state.tempLinkman.avatar = avatar
             that.$store.state.linkmans.push(JSON.parse(JSON.stringify(that.$store.state.tempLinkman)))
           }
           //切换到主页面

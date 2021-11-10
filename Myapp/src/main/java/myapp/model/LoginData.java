@@ -7,4 +7,5 @@ import java.util.List;
 public class LoginData {
     UserPo userPo;
     List<UserPo> linkManList;
+    List<GroupPo> groupPoList;
 }

@@ -1,7 +1,9 @@
 package myapp.service.impl;
 
 import myapp.mapper.FriendPoMapper;
+import myapp.mapper.GroupPoMapper;
 import myapp.mapper.UserPoMapper;
+import myapp.model.GroupPo;
 import myapp.model.LoginData;
 import myapp.model.UserPo;
 import myapp.service.UserService;
@@ -17,6 +19,8 @@ public class UserServiceImpl implements UserService {
     UserPoMapper userPoMapper;
     @Resource
     FriendPoMapper friendPoMapper;
+    @Resource
+    GroupPoMapper groupPoMapper;
 
     @Override
     public RespResult userLogin(String userAccount, String userPassword) {
@@ -39,6 +43,8 @@ public class UserServiceImpl implements UserService {
             loginData.setUserPo(userPo);
             List<UserPo> userPoList = friendPoMapper.friendInfo(userPo.getUid());
             loginData.setLinkManList(userPoList);
+            List<GroupPo> groupPoList = groupPoMapper.getGroupByUId(userPo.getUid());
+            loginData.setGroupPoList(groupPoList);
             return RespResult.success("登录成功!", loginData);
         } else {
             return RespResult.fail("密码错误!");

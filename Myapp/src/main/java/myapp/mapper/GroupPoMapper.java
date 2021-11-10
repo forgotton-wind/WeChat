@@ -10,4 +10,5 @@ public interface GroupPoMapper {
     Integer exitGroup(Integer gId, Integer uId);
     Integer insertMessage(GroupMessagePo groupMessagePo);
     List<GroupMessagePo> receiveGroupMessage(Integer gId);
+    List<GroupPo> getGroupByUId(Integer uId);
 }

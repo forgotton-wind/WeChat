@@ -60,11 +60,62 @@ export default {
     },
 
     addGroup() {
+      var that = this;
+      var mydata={
+        u_id: that.$store.state.myself.id,
+        g_id: that.$store.state.tempLinkman.id,
+      }
+
+      that.axios({
+        method: "post",
+        url: 'http://127.0.0.1:8077/WeChat/group/add',
+        data:Qs.stringify(mydata)
+      })
+      .then(function(res) {
+        if (res.data.msg=="加入成功") {
+          that.$store.state.tempLinkman.type = "group";
+          that.$store.commit("addLinkman");
+          that.$store.state.isingroup = true;
+          alert(res.data.msg);
+        } else {
+          alert(res.data.msg);
+        }
+      })
+      .catch(function(err) {
+        console.log(err);
+      });
 
     },
 
     delGroup() {
-      
+      var that = this;
+      var mydata={
+        u_id: that.$store.state.myself.id,
+        g_id: that.$store.state.tempLinkman.id,
+      }
+
+      that.axios({
+        method: "post",
+        url: 'http://127.0.0.1:8077/WeChat/group/exit',
+        data:Qs.stringify(mydata)
+      })
+      .then(function(res) {
+        if (res.data.msg=="退出成功") {
+          that.$store.commit("delLinkman", that.$store.state.isgroup);
+          that.$store.state.linkOrTemp = 0;
+          if (that.$store.state.isgroup == true) {
+            that.$store.state.isingroup = false;
+          } else {
+            that.$store.state.isfriend = false;
+          }
+          alert(res.data.msg);
+        } else {
+          alert(res.data.msg);
+        }
+      })
+      .catch(function(err) {
+        console.log(err);
+      });
     },
 
     sendMessagefriend() {
