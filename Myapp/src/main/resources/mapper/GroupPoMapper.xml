@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="myapp.mapper.GroupPoMapper">
+    <resultMap id="BaseResultMap" type="myapp.model.GroupPo">
+        <result column="g_id" jdbcType="INTEGER" property="id" />
+        <result column="g_name" jdbcType="VARCHAR" property="name" />
+    </resultMap>
+
+    <resultMap id="GroupMessageMap" type="myapp.model.GroupMessagePo">
+        <result column="gm_id" jdbcType="INTEGER" property="id" />
+        <result column="gm_content" jdbcType="VARCHAR" property="content" />
+        <result column="gm_time" jdbcType="TIMESTAMP" property="time" />
+        <result column="gm_uid" jdbcType="INTEGER" property="uId" />
+        <result column="gm_gid" jdbcType="INTEGER" property="gId" />
+        <result column="gm_type" jdbcType="INTEGER" property="type" />
+    </resultMap>
+
+    <select id="searchGroup" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select g_id, g_name from t_group where g_name = #{name,jdbcType=VARCHAR}
+    </select>
+
+    <insert id="addGroup" parameterType="java.lang.Integer">
+        insert into t_usergroup
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            ug_gid, ug_uid,
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            #{gId,jdbcType=INTEGER}, #{uId,jdbcType=INTEGER},
+        </trim>
+    </insert>
+
+    <delete id="exitGroup" parameterType="java.lang.Integer">
+        delete from t_usergroup
+        where ug_gid = #{gId,jdbcType=INTEGER}
+        and ug_uid = #{uId,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insertMessage" parameterType="myapp.model.GroupMessagePo">
+        insert into t_groupmessage
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            gm_uid, gm_gid, gm_content, gm_time, gm_type
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            #{uId,jdbcType=INTEGER}, #{gId,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{time,jdbcType=TIMESTAMP}, #{type,jdbcType=INTEGER}
+        </trim>
+    </insert>
+
+    <select id="receiveGroupMessage" parameterType="java.lang.Integer" resultMap="GroupMessageMap">
+        select * from t_groupmessage
+        where gm_gid = #{gId,jdbcType=INTEGER}
+    </select>
+</mapper>
