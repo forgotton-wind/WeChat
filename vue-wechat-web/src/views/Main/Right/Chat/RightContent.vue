@@ -13,7 +13,7 @@
       <div class="no-new-message" v-if="isNoMessage">暂时没有新消息</div>
       <div v-else>
         <div v-for="(msg, index) in messages" :key="'msg' + index">
-          <p v-if="msg.type === 'notice'" class="msg-notice">{{ msg.ctn }}</p>
+          <p v-if="msg.type === 2" class="msg-notice">{{ msg.ctn }}</p>
           <div v-if="msg.type === 1" class="msg-chat">
             <p class="msg-notice msg-time" v-if="isShowTime(index)">
               {{ time(msg.time) }}

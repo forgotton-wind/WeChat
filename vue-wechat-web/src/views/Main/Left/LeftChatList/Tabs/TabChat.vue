@@ -18,7 +18,7 @@
       </div>
       <div class="chat-msg">
         <div class="chat-msg-nickname">
-          {{ chat.alias ? chat.alias : chat.nickname }}
+          {{ chat.nickname ? chat.nickname : chat.account }}
         </div>
         <pre
           class="chat-msg-message"

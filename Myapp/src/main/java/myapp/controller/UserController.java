@@ -31,7 +31,7 @@ public class UserController extends BaseController implements UserApi {
     @Override
     public ResponseEntity<RespResult> userUpdate(UserPo userPo) {
         RespResult  respResult= userService.userUpdate(userPo);
-        return new ResponseEntity<RespResult>(RespResult.success(respResult),HttpStatus.OK);
+        return new ResponseEntity<RespResult>(respResult,HttpStatus.OK);
     }
 
 }

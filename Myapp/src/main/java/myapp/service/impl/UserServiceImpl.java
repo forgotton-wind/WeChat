@@ -68,6 +68,6 @@ public class UserServiceImpl implements UserService {
             userPo.setPassword(MD5Util.encodeMd5(userPo.getPassword()));
         }
         userPoMapper.updateByPrimaryKeySelective(userPo);
-        return RespResult.success("用户信息修改成功!");
+        return RespResult.success("修改成功!");
     }
 }
