@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public RespResult userUpdate(UserPo userPo) {
-        if(userPo.getPassword()!=null) {
+        if(userPo.getPassword()!=null && !userPo.getPassword().equals("")) {
             userPo.setPassword(MD5Util.encodeMd5(userPo.getPassword()));
         }
         userPoMapper.updateByPrimaryKeySelective(userPo);
