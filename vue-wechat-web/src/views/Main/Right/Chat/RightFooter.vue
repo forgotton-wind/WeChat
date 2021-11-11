@@ -253,15 +253,17 @@ export default {
 
       const myself = this.$store.state.myself;
       var time = new Date()
-      // this.$store.commit("sendMessage", {
-      //   time: time,
-      //   sender: myself.id,
-      //   nickname: myself.nickname,
-      //   avatar: myself.avatar,
-      //   type: 1,
-      //   ctn
-      // });
-
+      if (this.$store.state.linkmans[this.$store.state.currentLinkman].type != "group") {
+        this.$store.commit("sendMessage", {
+          time: time,
+          sender: myself.id,
+          nickname: myself.nickname,
+          avatar: myself.avatar,
+          type: 1,
+          ctn
+        });
+      }
+      
       let tt = dateFormat(time)
       var that = this
       for (let chat of that.$store.state.chats) {
