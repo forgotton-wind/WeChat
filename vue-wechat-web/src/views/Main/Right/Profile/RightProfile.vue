@@ -6,7 +6,7 @@
         </div>
         <div class="acount-information-right">
           <h4 class="avatar-label"> 头 像 修 改 </h4>
-          <input v-model="avater" class="avatar-input" type="text" placeholder="头像链接" />
+          <input v-model="avatar" class="avatar-input" type="text" placeholder="头像链接" />
           <h4 class="nickname-label"> 昵 称 修 改 </h4>
           <input v-model="nickname" class="nickname-input" type="text" placeholder="昵称" />
           <h4 class="password-label"> 密 码 修 改 </h4>
@@ -18,7 +18,7 @@
         <div class="personal-information-left">
           <h4 class="name-label"> 姓 名 修 改 </h4>
           <h4 class="sex-label"> 性 别 修 改 </h4>
-          <h4 class="birthday-label"> 生 日 修 改 </h4>
+          <!-- <h4 class="birthday-label"> 生 日 修 改 </h4> -->
           <h4 class="email-label"> 邮 箱 修 改 </h4>
           <h4 class="schoolname-label"> 学 校 修 改 </h4>
           <h4 class="city-label"> 城 市 修 改 </h4>
@@ -27,7 +27,7 @@
         <div class="personal-information-right">
           <input v-model="name" class="name-input" type="text" placeholder="姓名" />
           <input v-model="sex" class="sex-input" type="text" placeholder="性别" />
-          <input v-model="birthday" class="birthday-input" type="date" placeholder="生日" />
+          <!-- <input v-model="birthday" class="birthday-input" type="date" placeholder="生日" /> -->
           <input v-model="email" class="email-input" type="text" placeholder="邮箱" />
           <input v-model="schoolname" class="schoolname-input" type="text" placeholder="学校" />
           <input v-model="city" class="city-input" type="text" placeholder="城市" />
@@ -61,12 +61,12 @@ export default {
     name :'modifyprofile',
     data() {
         return {
-            avater:'',
+            avatar:'',
             nickname:'',
             password:'',
             name:'',
             sex:'',
-            birthday:'',
+            // birthday:'',
             email:'',
             schoolname:'',
             city:'',
