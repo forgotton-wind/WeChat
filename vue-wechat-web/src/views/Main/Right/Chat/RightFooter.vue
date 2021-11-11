@@ -254,43 +254,68 @@ export default {
       const myself = this.$store.state.myself;
       var time = new Date()
       this.$store.commit("sendMessage", {
-        type: 1,
         time: time,
         sender: myself.id,
         nickname: myself.nickname,
         avatar: myself.avatar,
+        type: 1,
         ctn
       });
 
       let tt = dateFormat(time)
-      console.log(tt)
       var that = this
       for (let chat of that.$store.state.chats) {
         if (chat.chatId === that.$store.state.currentChatId) {
-          var mydata = {
-            m_from_id: that.$store.state.myself.id,
-            m_to_id: chat.linkmanId,
-            content: ctn,
-            time: tt,
-            message_type: 1
-          }
-
-          console.log(mydata.content);
-          //在这里进行跨域请求
-          that.axios({
-            method: "post",
-            url: 'http://127.0.0.1:8077/WeChat/message/transmit',
-            data:Qs.stringify(mydata)
-          })
-          .then(function(res) {
-            console.log(res);
-            if (res.data.msg=="发送成功!") {
-              
-            } else {
-              alert(res.data.msg);
+          if (chat.isGroup) {
+            var mydata = {
+              u_id: that.$store.state.myself.id,
+              g_id: chat.linkmanId,
+              content: ctn,
+              time: tt
             }
-          })
-          break;
+            
+            //在这里进行跨域请求
+            that.axios({
+              method: "post",
+              url: 'http://127.0.0.1:8077/WeChat/group/send',
+              data:Qs.stringify(mydata)
+            })
+            .then(function(res) {
+              console.log(res);
+              if (res.data.msg=="发送成功") {
+                
+              } else {
+                alert(res.data.msg);
+              }
+            })
+            break;
+
+          } else {
+            var mydata = {
+              m_from_id: that.$store.state.myself.id,
+              m_to_id: chat.linkmanId,
+              content: ctn,
+              time: tt,
+              message_type: 1
+            }
+  
+            console.log(mydata.content);
+            //在这里进行跨域请求
+            that.axios({
+              method: "post",
+              url: 'http://127.0.0.1:8077/WeChat/message/transmit',
+              data:Qs.stringify(mydata)
+            })
+            .then(function(res) {
+              console.log(res);
+              if (res.data.msg=="发送成功!") {
+                
+              } else {
+                alert(res.data.msg);
+              }
+            })
+            break;
+          }
         }
       }
 

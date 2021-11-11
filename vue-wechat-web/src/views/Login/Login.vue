@@ -131,6 +131,16 @@ export default {
             that.$store.state.tempLinkman.nickname = linkman.name
             that.$store.state.tempLinkman.type = "group"
             that.$store.state.tempLinkman.avatar = avatar
+            
+            //群聊不需要这些，置为null
+            that.$store.state.tempLinkman.account = null
+            that.$store.state.tempLinkman.name = null
+            that.$store.state.tempLinkman.sex = null
+            that.$store.state.tempLinkman.birthday = null
+            that.$store.state.tempLinkman.email = null
+            that.$store.state.tempLinkman.schoolname = null
+            that.$store.state.tempLinkman.city = null
+            that.$store.state.tempLinkman.bloodtype = null
             that.$store.state.linkmans.push(JSON.parse(JSON.stringify(that.$store.state.tempLinkman)))
           }
           //切换到主页面

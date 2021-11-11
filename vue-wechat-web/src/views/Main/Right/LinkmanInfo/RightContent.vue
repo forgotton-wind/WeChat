@@ -3,7 +3,7 @@
     <img v-if="linkOrTemp" class="avatar" :src="linkman.avatar" />
     <img v-else class="avatar" :src="tempLinkman.avatar" />
     <h4 v-if="linkOrTemp" class="nickname">
-      {{ tempLinkman.nickname ? tempLinkman.nickname : tempLinkman.account }}
+      {{ linkman.nickname ? linkman.nickname : linkman.account }}
     </h4>
     <h4 v-else class="nickname">
       {{ tempLinkman.nickname ? tempLinkman.nickname : tempLinkman.account }}
@@ -56,6 +56,7 @@ export default {
   },
   methods: {
     sendMessagegroup() {
+      // console.log(this.$store.state.currentLinkman)
       this.$store.commit("addChat", this.$store.state.currentLinkman);
     },
 
@@ -75,7 +76,9 @@ export default {
         if (res.data.msg=="加入成功") {
           that.$store.state.tempLinkman.type = "group";
           that.$store.commit("addLinkman");
+          that.$store.commit("getIndexById",  {id: that.$store.state.tempLinkman.id, isgroup: true});
           that.$store.state.isingroup = true;
+          that.$store.state.linkOrTemp = 1
           alert(res.data.msg);
         } else {
           alert(res.data.msg);
@@ -119,6 +122,7 @@ export default {
     },
 
     sendMessagefriend() {
+      // console.log(this.$store.state.currentLinkman)
       this.$store.commit("addChat", this.$store.state.currentLinkman);
     },
 
@@ -158,7 +162,9 @@ export default {
             that.$store.state.tempLinkman.type = char
           }
           that.$store.commit("addLinkman");
+          that.$store.commit("getIndexById",  {id: that.$store.state.tempLinkman.id, isgroup: false});
           that.$store.state.isfriend = true;
+          that.$store.state.linkOrTemp = 1
           alert(res.data.msg);
         } else {
           alert(res.data.msg);

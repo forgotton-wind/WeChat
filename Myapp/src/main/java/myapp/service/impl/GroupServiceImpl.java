@@ -8,6 +8,7 @@ import myapp.util.DateUtils;
 import myapp.util.RespResult;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -48,13 +49,19 @@ public class GroupServiceImpl implements GroupService {
         return RespResult.success("发送成功");
     }
 
-    public RespResult receiveGroupMessage(Integer gId) {
-        List<GroupMessagePo> list = groupPoMapper.receiveGroupMessage(gId);
+    public RespResult receiveGroupMessage(Integer uId) {
+        List<List<GroupMessagePo>> lists = new ArrayList<>();
+        List<GroupPo> groupPoList = groupPoMapper.getGroupByUId(uId);
+        for (GroupPo groupPo: groupPoList) {
+            Integer gId = groupPo.getId();
+            List<GroupMessagePo> list = groupPoMapper.receiveGroupMessage(gId);
+            lists.add(list);
+        }
 
-        if (list.isEmpty()) {
+        if (lists.isEmpty()) {
             return RespResult.success("无消息");
         }
 
-        return RespResult.success("有消息", list);
+        return RespResult.success("有消息", lists);
     }
 }

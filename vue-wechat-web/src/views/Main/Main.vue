@@ -73,6 +73,45 @@ export default {
           console.log("每秒轮询一次")
       }, 1)
     }, 1000);
+
+    // 群聊轮循
+    this.timer = window.setInterval(() => {
+      setTimeout(() => {
+          //轮询有无新消息
+          var that = this;
+          var mydata={
+            u_id:that.$store.state.myself.id,
+          }
+
+          that.axios({
+            method: "get",
+            url: 'http://127.0.0.1:8077/WeChat/group/receive?u_id='+mydata.u_id,
+            data:Qs.stringify(mydata)
+          })
+          .then(function(res) {
+            console.log(res);
+            if (res.data.msg=="有消息") {
+              for (let i=0; i<res.data.data.length; ++i) {
+                for (let j=0; j<res.data.data[i].length; ++j) {
+                  var mydata  = {
+                    ctn: res.data.data[i][j].content,
+                    time: res.data.data[i][j].time,
+                    type: res.data.data[i][j].type,
+                    uId: res.data.data[i][j].uid,
+                    gId: res.data.data[i][j].gid,
+                    id: res.data.data[i][j].id,
+                  }
+                  that.$store.commit("receiveGroupChat", mydata)
+                } 
+              }
+            }
+          })
+          .catch(function(err) {
+            console.log(err);
+          });
+          console.log("每秒轮询一次2")
+      }, 1)
+    }, 1000);
   },
   destroyed(){
     clearInterval(this.timer)

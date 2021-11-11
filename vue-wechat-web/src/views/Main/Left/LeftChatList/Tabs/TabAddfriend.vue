@@ -91,6 +91,7 @@ export default {
               break;
             }
           }
+          that.$store.commit("getIndexById", {id:that.$store.state.tempLinkman.id, isgroup:false})
           that.$store.commit("setCurrentRight", 1);
         } else {
           alert(res.data.msg);
@@ -126,6 +127,7 @@ export default {
                 break;
               }
             }
+            that.$store.commit("getIndexById", {id:that.$store.state.tempLinkman.id, isgroup:true})
             that.$store.commit("setCurrentRight", 1);
           } else {
             alert(res.data.msg);

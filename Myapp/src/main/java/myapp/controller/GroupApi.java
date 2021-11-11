@@ -45,7 +45,7 @@ public interface GroupApi {
     @ApiOperation(value = "轮询群聊消息", notes = "receive Group Message", response = RespResult.class, tags={ "Group", })
     @RequestMapping(value = "/group/receive",
             produces = { "application/json" },
-            method = RequestMethod.POST)
-    ResponseEntity<RespResult> receiveGroupMessage(@NotNull @ApiParam(value = "群聊id", required = true) @RequestParam(value = "g_id") Integer gId
+            method = RequestMethod.GET)
+    ResponseEntity<RespResult> receiveGroupMessage(@NotNull @ApiParam(value = "用户id", required = true) @RequestParam(value = "u_id") Integer uId
     );
 }

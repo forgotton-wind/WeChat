@@ -7,5 +7,5 @@ public interface GroupService {
     RespResult addGroup(Integer gId, Integer uId);
     RespResult exitGroup(Integer gId, Integer uId);
     RespResult sendGroupMessage(Integer gId, Integer uId, String content, String time);
-    RespResult receiveGroupMessage(Integer gId);
+    RespResult receiveGroupMessage(Integer uId);
 }

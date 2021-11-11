@@ -39,8 +39,8 @@ public class GroupController extends BaseController implements GroupApi{
     }
 
     @Override
-    public ResponseEntity<RespResult> receiveGroupMessage(Integer gId) {
-        RespResult respResult = groupService.receiveGroupMessage(gId);
+    public ResponseEntity<RespResult> receiveGroupMessage(Integer uId) {
+        RespResult respResult = groupService.receiveGroupMessage(uId);
         return new ResponseEntity<RespResult>(respResult, HttpStatus.OK);
     }
 }

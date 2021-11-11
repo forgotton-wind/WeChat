@@ -213,9 +213,11 @@ const store = new Vuex.Store({
 
       state.chatCount += 1;
     },
-    getIndexById(state, id) {
+    getIndexById(state, data) {
+      console.log(state.linkmans)
       for (let i=0; i<state.linkmans.length; ++i) {
-        if (state.linkmans[i].id === id) {
+        if ((state.linkmans[i].id==data.id)
+          && (data.isgroup ? (state.linkmans[i].type=="group") : (state.linkmans[i].type!="group"))) {
           state.currentLinkman = i
           return;
         }
@@ -266,6 +268,73 @@ const store = new Vuex.Store({
               avatar: linkman.avatar,
               nickname: linkman.nickname,
               sender: mydata.fromId
+            }
+          ]
+        }
+      ].concat(state.chats);
+      state.currentChatId = state.chatCount;
+      state.chatCount += 1;
+    },
+    receiveGroupChat(state, mydata) {
+      for (let i = 0; i < state.chats.length; i++) {
+        let chat = state.chats[i]
+        if (chat.linkmanId === mydata.gId && chat.isGroup === true) {
+          for (let i=0; i<chat.messages.length; ++i) {
+            if (chat.messages[i].id == mydata.id) {
+              return
+            }
+          }
+          state.chats.splice(i, 1);
+          state.chats = [chat].concat(state.chats);
+          state.currentChatId = chat.chatId;
+          var mydata2 = {
+            ctn: mydata.ctn,
+            time: new Date(mydata.time),
+            type: mydata.type,
+            avatar: "",
+            nickname: "",
+            sender: mydata.uId,
+            id: mydata.id
+          }
+          for (let i=0; i<state.linkmans.length; ++i) {
+            if (state.linkmans[i].id == mydata.uId && state.linkmans[i].type != "group") {
+              mydata2.nickname = state.linkmans[i].nickname ? state.linkmans[i].nickname : state.linkmans[i].account
+              mydata2.avatar = state.linkmans[i].avatar
+            }
+          }
+          if (mydata.uId == state.myself.id && state.linkmans[i].type != "group") {
+            mydata2.nickname = state.myself.nickname ? state.myself.nickname : state.myself.account
+            mydata2.avatar = state.myself.avatar
+          }
+          chat.messages.push(mydata2)
+          return;
+        }
+      }
+      var realNickName = ""
+      var realAvatar = ""
+      for (let i=0; i<state.linkmans.length; ++i) {
+        if (state.linkmans[i].id == mydata.uId && state.linkmans[i].type != "group") {
+          realNickName = state.linkmans[i].nickname ? state.linkmans[i].nickname : state.linkmans[i].account
+          realAvatar = state.linkmans[i].avatar
+        }
+      }
+
+      state.chats = [
+        {
+          linkmanId: mydata.gId,
+          chatId: state.chatCount,
+          isMute: false,
+          isOnTop: false,
+          isGroup: true,
+          messages: [
+            {
+              ctn: mydata.ctn,
+              time: new Date(mydata.time),
+              type: mydata.type,
+              avatar: realAvatar,
+              nickname: realNickName,
+              sender: mydata.uId,
+              id: mydata.id
             }
           ]
         }
