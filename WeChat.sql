@@ -11,7 +11,7 @@
  Target Server Version : 80027
  File Encoding         : 65001
 
- Date: 11/11/2021 13:57:55
+ Date: 11/11/2021 15:55:25
 */
 
 SET NAMES utf8mb4;
@@ -32,12 +32,12 @@ CREATE TABLE `t_friend`  (
 -- ----------------------------
 -- Records of t_friend
 -- ----------------------------
-INSERT INTO `t_friend` VALUES (2, NULL, 2, 1);
-INSERT INTO `t_friend` VALUES (55, NULL, 1, 2);
-INSERT INTO `t_friend` VALUES (57, NULL, 3, 1);
-INSERT INTO `t_friend` VALUES (58, NULL, 1, 3);
-INSERT INTO `t_friend` VALUES (59, NULL, 3, 2);
-INSERT INTO `t_friend` VALUES (60, NULL, 2, 3);
+INSERT INTO `t_friend` VALUES (87, NULL, 3, 1);
+INSERT INTO `t_friend` VALUES (88, NULL, 1, 3);
+INSERT INTO `t_friend` VALUES (89, NULL, 3, 2);
+INSERT INTO `t_friend` VALUES (90, NULL, 2, 3);
+INSERT INTO `t_friend` VALUES (91, NULL, 1, 2);
+INSERT INTO `t_friend` VALUES (92, NULL, 2, 1);
 
 -- ----------------------------
 -- Table structure for t_group
@@ -74,14 +74,6 @@ CREATE TABLE `t_groupmessage`  (
 -- ----------------------------
 -- Records of t_groupmessage
 -- ----------------------------
-INSERT INTO `t_groupmessage` VALUES (1, 'hahahha', '2021-11-11 00:00:00', 1, 1, 1);
-INSERT INTO `t_groupmessage` VALUES (2, 'hello', '2021-11-12 00:00:00', 2, 1, 1);
-INSERT INTO `t_groupmessage` VALUES (3, 'ahaha', '2021-11-11 09:48:14', 3, 1, 1);
-INSERT INTO `t_groupmessage` VALUES (4, '第一次发消息哦', '2021-11-11 09:48:20', 3, 1, 1);
-INSERT INTO `t_groupmessage` VALUES (5, 'oooo', '2021-11-11 09:50:47', 3, 1, 1);
-INSERT INTO `t_groupmessage` VALUES (6, 'hi', '2021-11-11 09:54:15', 3, 1, 1);
-INSERT INTO `t_groupmessage` VALUES (7, 'hoho', '2021-11-11 09:54:18', 3, 1, 1);
-INSERT INTO `t_groupmessage` VALUES (8, 'hello', '2021-11-11 13:00:11', 3, 3, 1);
 
 -- ----------------------------
 -- Table structure for t_message
@@ -101,16 +93,6 @@ CREATE TABLE `t_message`  (
 -- ----------------------------
 -- Records of t_message
 -- ----------------------------
-INSERT INTO `t_message` VALUES (72, 'ghj', '1', '2021-11-10 16:52:33', 1, 3, 2);
-INSERT INTO `t_message` VALUES (73, 'xfgh', '1', '2021-11-10 16:52:39', 1, 3, 1);
-INSERT INTO `t_message` VALUES (74, 'hello', '1', '2021-11-11 00:14:50', 1, 3, 1);
-INSERT INTO `t_message` VALUES (75, 'hi', '1', '2021-11-11 00:52:02', 1, 3, 2);
-INSERT INTO `t_message` VALUES (76, 'nihao', '1', '2021-11-11 00:52:20', 1, 2, 3);
-INSERT INTO `t_message` VALUES (77, '111', '1', '2021-11-11 09:50:08', 1, 3, 2);
-INSERT INTO `t_message` VALUES (78, 'hihao', '1', '2021-11-11 09:50:42', 1, 3, 2);
-INSERT INTO `t_message` VALUES (79, 'loawang', '1', '2021-11-11 09:54:24', 1, 3, 2);
-INSERT INTO `t_message` VALUES (80, 'nihao', '1', '2021-11-11 09:54:25', 1, 3, 2);
-INSERT INTO `t_message` VALUES (81, 'hi', '1', '2021-11-11 11:52:39', 1, 1, 3);
 
 -- ----------------------------
 -- Table structure for t_messagetype
@@ -168,13 +150,10 @@ CREATE TABLE `t_usergroup`  (
 -- ----------------------------
 -- Records of t_usergroup
 -- ----------------------------
-INSERT INTO `t_usergroup` VALUES (2, 1, 2);
-INSERT INTO `t_usergroup` VALUES (4, 2, 1);
-INSERT INTO `t_usergroup` VALUES (5, 2, 2);
-INSERT INTO `t_usergroup` VALUES (6, 3, 1);
-INSERT INTO `t_usergroup` VALUES (8, 1, 1);
-INSERT INTO `t_usergroup` VALUES (11, 1, 3);
-INSERT INTO `t_usergroup` VALUES (12, 2, 3);
-INSERT INTO `t_usergroup` VALUES (16, 3, 3);
+INSERT INTO `t_usergroup` VALUES (23, 1, 3);
+INSERT INTO `t_usergroup` VALUES (24, 2, 3);
+INSERT INTO `t_usergroup` VALUES (25, 3, 3);
+INSERT INTO `t_usergroup` VALUES (26, 1, 1);
+INSERT INTO `t_usergroup` VALUES (27, 1, 2);
 
 SET FOREIGN_KEY_CHECKS = 1;
