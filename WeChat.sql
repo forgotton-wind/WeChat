@@ -11,7 +11,7 @@
  Target Server Version : 80027
  File Encoding         : 65001
 
- Date: 11/11/2021 15:55:25
+ Date: 11/11/2021 20:33:49
 */
 
 SET NAMES utf8mb4;
@@ -132,9 +132,9 @@ CREATE TABLE `t_user`  (
 -- ----------------------------
 -- Records of t_user
 -- ----------------------------
-INSERT INTO `t_user` VALUES (1, 'mlj', '202cb962ac59075b964b07152d234b70', 1, 'https://s3.bmp.ovh/imgs/2021/11/754316042becc8b6.png', '小明', NULL, NULL, '2021-11-08 07:37:41.000000', NULL, NULL, 'bj', NULL);
-INSERT INTO `t_user` VALUES (2, 'mlj1', '202cb962ac59075b964b07152d234b70', 1, 'https://s3.bmp.ovh/imgs/2021/11/754316042becc8b6.png', '老王', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `t_user` VALUES (3, 'qwer', '202cb962ac59075b964b07152d234b70', 1, 'https://s3.bmp.ovh/imgs/2021/11/754316042becc8b6.png', '测试', 'aaa', '男', NULL, NULL, NULL, NULL, 'C');
+INSERT INTO `t_user` VALUES (1, 'mlj', '202cb962ac59075b964b07152d234b70', 1, 'https://ptpimg.me/r1xl4k.jpg', '小明', NULL, NULL, '2021-11-08 07:37:41.000000', NULL, NULL, 'bj', NULL);
+INSERT INTO `t_user` VALUES (2, 'mlj1', '202cb962ac59075b964b07152d234b70', 1, 'https://ptpimg.me/em60mw.jpg', '老王', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `t_user` VALUES (3, 'qwer', '202cb962ac59075b964b07152d234b70', 1, 'https://ptpimg.me/0knvl8.jpg', '测试', 'aaa', '男', NULL, NULL, NULL, NULL, 'C');
 
 -- ----------------------------
 -- Table structure for t_usergroup
