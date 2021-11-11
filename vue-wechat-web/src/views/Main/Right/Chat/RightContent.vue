@@ -112,6 +112,20 @@ export default {
       };
     },
     chatterInfo() {
+      if (this.$store.state.linkmans.length == 0) {
+        return {
+          id: null,
+          avatar:null,
+          type: null,
+          nickname: null,
+          name: null,
+          sex: null,
+          email: null,
+          city: null,
+          schoolname:null,
+          bloodtype:null,
+        }
+      }
       const linkman = this.$store.state.linkmans[this.$store.state.currentLinkman]
       return {
         id: linkman.id,

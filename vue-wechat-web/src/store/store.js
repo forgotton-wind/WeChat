@@ -224,8 +224,8 @@ const store = new Vuex.Store({
       }
     },
     receiveChat(state, mydata) {
-      // state.currentTabIndex = 0;
-      // state.currentRight = 0;
+      state.currentTabIndex = 0;
+      state.currentRight = 0;
       for (let i=0; i<state.linkmans.length; ++i) {
         if (state.linkmans[i].id === mydata.fromId && state.linkmans[i].type !== "group") {
           state.currentLinkman = i
