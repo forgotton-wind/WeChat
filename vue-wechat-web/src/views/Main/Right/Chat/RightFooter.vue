@@ -251,21 +251,9 @@ export default {
         return aMatch;
       });
 
-      const myself = this.$store.state.myself;
-      var time = new Date()
-      if (this.$store.state.linkmans[this.$store.state.currentLinkman].type != "group") {
-        this.$store.commit("sendMessage", {
-          time: time,
-          sender: myself.id,
-          nickname: myself.nickname,
-          avatar: myself.avatar,
-          type: 1,
-          ctn
-        });
-      }
-      
-      let tt = dateFormat(time)
       var that = this
+      var time = new Date()
+      let tt = dateFormat(time)
       for (let chat of that.$store.state.chats) {
         if (chat.chatId === that.$store.state.currentChatId) {
           if (chat.isGroup) {
@@ -293,6 +281,17 @@ export default {
             break;
 
           } else {
+            const myself = this.$store.state.myself;
+            
+            this.$store.commit("sendMessage", {
+              time: time,
+              sender: myself.id,
+              nickname: myself.nickname,
+              avatar: myself.avatar,
+              type: 1,
+              ctn
+            });
+            
             var mydata = {
               m_from_id: that.$store.state.myself.id,
               m_to_id: chat.linkmanId,
