@@ -89,7 +89,7 @@ export default {
           nickName: that.nickname,
           name: that.name,
           sex: that.sex,
-          birthday: new Date(dateFormat(that.birthday)),
+          // birthday: new Date(dateFormat(that.birthday)),
           email: that.email,
           schoolName: that.schoolname,
           city: that.city,
